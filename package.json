@@ -1,0 +1,27 @@
+{
+  "name": "warehouse-returns",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "seeds": "node seeds/index.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "connect-session-sequelize": "^7.1.2",
+    "dotenv": "^15.0.0",
+    "express": "^4.17.2",
+    "express-session": "^1.17.2",
+    "handlebars": "^4.7.7",
+    "jest": "^27.4.7",
+    "mysql2": "^2.3.3",
+    "node": "^17.4.0",
+    "sequelize": "^6.15.0"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0"
+  }
+}
