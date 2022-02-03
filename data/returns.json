@@ -2,27 +2,25 @@
   "returns": [
     {
       "id": "0",
-      "partNumber": "1234",
+      "part_number": "1234",
       "quantity": 1,
-      "timedate": "",
-      "reasonId": 0,
-      "conditionId": null,
-      "receiveDate": null,
-      "companyId": 0,
-      "notes": "This is a test",
-      "credit": null
+      "date": "",
+      "reason_id": 0,
+      "condition_id": null,
+      "receive_date": null,
+      "customer_id": 0,
+      "notes": "This is a test"
     },
     {
       "id": "1",
-      "partNumber": "5678",
+      "part-number": "5678",
       "quantity": 2,
-      "timedate": "",
-      "reasonId": 1,
-      "conditionId": 1,
-      "receiveDate": null,
-      "companyId": 1,
-      "notes": "This is a test 2",
-      "credit": null
+      "date": "",
+      "reason_id": 1,
+      "condition_id": 1,
+      "receive_date": null,
+      "customer_id": 1,
+      "notes": "This is a test 2"
     }
   ]
 }
