@@ -7,6 +7,7 @@ Return.init(
   {
     id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
@@ -18,43 +19,41 @@ Return.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    date: {
-      createdAt: sequelize.DATE,
-    },
+    // date: {
+    //   type: DataTypes.DATEONLY,
+    //   createdAt: sequelize.DATE,
+    // },
     reason_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "reason",
         key: "id",
-      },
+      }
     },
     condition_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "condition",
         key: "id",
-      },
+      }
     },
-    receive_date: {
-      type: DataTypes.DATEONLY,
-    },
+    // receive_date: {
+    //   type: DataTypes.DATEONLY,
+    // },
     customer_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "customer",
         key: "id",
-      },
+      }
     },
     notes: {
       type: DataTypes.TEXT,
     },
-    receive_date: {
-      updatedAt: sequelize.DATE,
-    },
   },
   {
     sequelize,
-    timestamps: true,
+    // timestamps: true,
     freezeTableName: true,
     underscored: true,
     modelName: "return",
