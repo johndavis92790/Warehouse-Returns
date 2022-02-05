@@ -86,13 +86,15 @@ router.get("/completed-returns", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  const obj = req.body;
+  console.log("test", obj);
   Return.create({
-    part_number: req.body.part_number,
-    quantity: req.body.quantity,
-    reason_id: req.body.reason_id,
-    condition_id: req.body.condition_id,
-    customer_id: req.body.customer_id,
-    notes: req.body.notes,
+    part_number: obj.partNumber,
+    quantity: obj.quantity,
+    reason_id: obj.reason,
+    condition_id: obj.condition,
+    customer_id: obj.customer,
+    notes: obj.notes,
   })
     .then((dbReturnData) => {
       // req.session.save(() => {

@@ -23,7 +23,7 @@ const reasonData = [
     name: "Mislabeled Part",
   },
   {
-    name: "Missing Parts (List them in notes section",
+    name: "Missing Parts (List them in notes section)",
   }
 ];
 

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Returns</title>
+    <!-- <link rel="stylesheet" href="/stylesheets/style/css"> -->
+  </head>
+
+  <body>
+    <br class="wrapper">
+      <main>
+        <h2>Submit a request</h2>
+        <form id="request-form">
+          <label for="customer-name" class="form-label">Company Name</label>
+          <input type="text" id="customer-name" name="customer-name" class="form-input" placeholder="Enter Name"></br>
+
+          <label for="part-input" class="form-label">Part Number</label>
+          <input type="text" id="part-input" name="part-number" class="form-input" placeholder="Enter Part"></br>
+
+          <label for="quantity-input" class="form-label">Quantity</label>
+          <input type="text" id="quantity-input" name="quantity" class="form-input" placeholder="Enter Quantity"></br>
+
+          <label for="reason-input" class="form-label">Return Reason</label>
+          <!-- <select id="reason-input" class="form-input" name="reason"></br>
+            <option value="Lost Sale">Lost Sale</option>
+            <option value="Customer Never Showed">Customer Never Showed</option>
+            <option value="Damaged (Concealed)">Damaged (Concealed)</option>
+            <option value="Damaged (Packaging is damaged also)">Damaged (Packaging is damaged also)</option>
+            <option value="Duplicate Order">Duplicate Order</option>
+            <option value="Incorrect Part">Incorrect Part</option>
+            <option value="Mislabeled Part">Mislabeled Part</option>
+            <option value="Missing Parts (List them in notes section)">Missing Parts (List them in notes section)</option>
+          </select></br> -->
+          <input type="text" id="reason-input" name="reason" class="form-input" placeholder="Enter Reason"></br>
+
+          <label for="notes-input" class="form-label">Notes</label>
+          <input type="text" id="notes-input" name="notes" class="form-input" placeholder="Enter notes"></br>
+
+          <button class="btn">Submit</button>
+        </form>
+      </main>
+
+      </br>
+
+      <footer>
+          Project Participants: John Davis, Braxton Hotten, Daniel Jardine
+      </footer>
+    </div>
+    <script src="../public/js/request.js"></script>
+  </body>
+</html>
