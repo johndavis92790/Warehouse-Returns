@@ -3,6 +3,7 @@ const Customer = require("./Customer");
 const Reason = require("./Reason");
 const Return = require("./Return");
 const Condition = require("./Condition");
+const User = require("./User");
 
 // create associations
 Return.belongsTo(Customer, {
@@ -17,4 +18,4 @@ Return.belongsTo(Condition, {
   foreignKey: "condition_id",
 });
 
-module.exports = { Customer, Reason, Return, Condition };
+module.exports = { Customer, Reason, Return, Condition, User };
