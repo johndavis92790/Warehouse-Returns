@@ -5,15 +5,15 @@ const Return = require("./Return");
 const Condition = require("./Condition");
 
 // create associations
-Customer.hasMany(Return, {
+Return.belongsTo(Customer, {
   foreignKey: "customer_id",
 });
 
-Reason.hasMany(Return, {
+Return.belongsTo(Reason, {
   foreignKey: "reason_id",
 });
 
-Condition.hasMany(Return, {
+Return.belongsTo(Condition, {
   foreignKey: "condition_id",
 });
 
