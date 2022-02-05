@@ -19,10 +19,10 @@ Return.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    // date: {
-    //   type: DataTypes.DATEONLY,
-    //   createdAt: sequelize.DATE,
-    // },
+    date: {
+      type: DataTypes.DATEONLY,
+      createdAt: sequelize.DATE,
+    },
     reason_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -37,9 +37,9 @@ Return.init(
         key: "id",
       }
     },
-    // receive_date: {
-    //   type: DataTypes.DATEONLY,
-    // },
+    receive_date: {
+      type: DataTypes.DATEONLY,
+    },
     customer_id: {
       type: DataTypes.INTEGER,
       references: {

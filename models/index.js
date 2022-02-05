@@ -9,12 +9,12 @@ Customer.hasMany(Return, {
   foreignKey: "customer_id",
 });
 
-// Reason.hasMany(Return, {
-//   foreignKey: "reason_id",
-// });
+Reason.hasMany(Return, {
+  foreignKey: "reason_id",
+});
 
-// Condition.hasMany(Return, {
-//   foreignKey: "condition_id",
-// });
+Condition.hasMany(Return, {
+  foreignKey: "condition_id",
+});
 
 module.exports = { Customer, Reason, Return, Condition };
