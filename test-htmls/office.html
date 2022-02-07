@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Warehouse Returns</title>
+        <link rel="stylesheet" href="../public/stylesheets/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    </head>
+
+
+    <body>
+        <header class="main-title">
+            <h1 >Office Manager Action Items</h1>
+        </header>
+
+        <div class="columns">
+            <div class="column is-one-quarter ml-1">
+                <div>
+                    <button class="control btn">Example Button 1</button>
+                </div>
+                <div>
+                    <button class="control btn">Example Button 2</button>
+                </div>
+                <div>
+                    <button class="control btn">Example Button 3</button>
+                </div>
+
+            </div>
+            
+            <div class="column is-three-quarters has-background-lightskyblue ">
+                <div class="box columns">
+                    <section class="column is-half big-box">
+                        <h2>Return Details:</h2>
+                        <section>
+                            <div class="RGA">
+                                <h3>RGA#</h3>
+                                <h3>Quantity</h3>
+                                <h3>Part</h3>
+                                <h3>Customer Name</h3>
+                                <h3>Timedate of request</h3>
+                                <h3>Customer Notes</h3>
+                                <h3>Condition of Part</h3>
+                                <h3>Timedate of Warehouse Check</h3>
+
+                                <h3>
+                                    Warehouse Notes:
+                                    <span>
+                                        <textarea class="textarea is-success" placeholder="Warehose notes" rows="3" lines="3"> </textarea>
+                                    </span>
+                                </h3>
+                            </div>
+
+
+                        </section>
+                    </section>
+                    <section class="column is-half big-box">
+                        <div class="control">
+                            <h2>  
+                                <span class="checkbox-wrapper">
+                                    <input type="radio" />
+                                </span>
+                                Customer Credited
+                            </h2>
+                        </div>
+                        <div class="spacing">
+                           <h2>Add Notes:</h2>
+                           <span>
+                               <textarea class="textarea is-success" placeholder="Notes:" rows="5"></textarea>
+                           </span> 
+                        </div>
+                        <button class="submit">Update Part</button>
+
+    
+                    </section>
+                </div>
+            </div>
+        </div>
+            
+    </body>
+
+</html>
