@@ -86,20 +86,19 @@ router.get("/completed-returns", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const obj = req.body;
-  console.log("test", obj);
+  console.log("test", req.body);
   Return.create({
-    part_number: obj.partNumber,
-    quantity: obj.quantity,
-    reason_id: obj.reason,
-    condition_id: obj.condition,
-    customer_id: obj.customer,
-    notes: obj.notes,
+    part_number: req.body.partNumber,
+    quantity: req.body.quantity,
+    reason_id: req.body.reason,
+    condition_id: req.body.condition,
+    customer_id: req.body.customer,
+    notes: req.body.notes,
   })
     .then((dbReturnData) => {
       // req.session.save(() => {
-      //   req.session.user_id = dbUserData.id;
-
+        // req.session.user_id = dbUserData.id;
+  // res.json(obj);
       res.json(dbReturnData);
       // });
     })
@@ -115,6 +114,8 @@ router.put("/:id", (req, res) => {
     where: {
       id: req.params.id,
     },
+    condition_id: req.body.condition,
+    notes: req.body.notes,
   })
     .then((dbReturnData) => {
       if (!dbReturnData) {
