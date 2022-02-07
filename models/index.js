@@ -3,18 +3,19 @@ const Customer = require("./Customer");
 const Reason = require("./Reason");
 const Return = require("./Return");
 const Condition = require("./Condition");
+const User = require("./User");
 
 // create associations
-Customer.hasMany(Return, {
+Return.belongsTo(Customer, {
   foreignKey: "customer_id",
 });
 
-Reason.hasMany(Return, {
+Return.belongsTo(Reason, {
   foreignKey: "reason_id",
 });
 
-Condition.hasMany(Return, {
+Return.belongsTo(Condition, {
   foreignKey: "condition_id",
 });
 
-module.exports = { Customer, Reason, Return, Condition };
+module.exports = { Customer, Reason, Return, Condition, User };
