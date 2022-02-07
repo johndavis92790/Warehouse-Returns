@@ -37,6 +37,9 @@ const handleUpdateFormSubmit = (event) => {
     .then((postResponse) => {
       console.log(postResponse);
       alert("Thank you for submitting an update!");
+      $currentReturnInfo.innerHTML = '';
+      document.getElementById("add-notes").value = "";
+      getAndRenderReturns();
     });
 };
 
@@ -45,6 +48,7 @@ const getReturns = () =>
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      "query": "warehouse",
     },
   });
 
@@ -92,10 +96,11 @@ const renderConditionList = async (conditions) => {
     const li = condition.name;
     conditionListItems.push(li);
   });
+  console.log(conditionListItems);
   const conditionHTML = conditionListItems.map((conditionText, i) => {
-    return `<option id="${i + 1}-condition" value="${
-      i + 1
-    }">${conditionText}</option>`;
+    return `
+    <option id="${i + 1}-condition" value="${i + 1}">${conditionText}</option>
+    `;
   });
   $conditionInput.innerHTML = conditionHTML.join("");
 };
@@ -109,3 +114,4 @@ const getAndRenderReturns = () => getReturns().then(renderReturnList);
 getAndRenderReturns();
 
 $updateForm.addEventListener("submit", handleUpdateFormSubmit);
+

@@ -4,12 +4,48 @@ const { Return, Reason, Condition, Customer } = require("../../models");
 // const withAuth = require("../../utils/auth");
 
 router.get("/", (req, res) => {
-  Return.findAll()
-    .then((dbReturnData) => res.json(dbReturnData))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+  if (req.headers.query === "warehouse") {
+    Return.findAll({
+      where: {
+        condition_id: null,
+      },
+    })
+      .then((dbReturnData) => res.json(dbReturnData))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  } else if (req.headers.query === "office") {
+    Return.findAll({
+      where: {
+        condition_id: {
+          [Op.not]: null,
+        },
+      },
+    })
+      .then((dbReturnData) => res.json(dbReturnData))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  }
+  // else if (req.headers.query === "completed") {
+  //   Return.findAll({
+  //     where: {
+  //       condition_id: {
+  //         [Op.not]: null,
+  //       },
+  //       credit: {
+  //         [Op.not]: null,
+  //       },
+  //     },
+  //   })
+  //     .then((dbReturnData) => res.json(dbReturnData))
+  //     .catch((err) => {
+  //       console.log(err);
+  //       res.status(500).json(err);
+  //     });
+  // }
 });
 
 router.get("/:id", (req, res) => {
@@ -31,52 +67,6 @@ router.get("/:id", (req, res) => {
         attributes: ["id", "name", "address", "phone", "email"],
       },
     ],
-  })
-    .then((dbReturnData) => res.json(dbReturnData))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-router.get("/warehouse-returns", (req, res) => {
-  Return.findAll({
-    where: {
-      condition_id: {
-        [Op.is]: null
-      }
-    },
-  })
-    .then((dbReturnData) => res.json(dbReturnData))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-
-router.get("/office-returns", (req, res) => {
-  Return.findAll({
-    where: {
-      condition_id: {
-        [Op.not]: null,
-      }
-    },
-  })
-    .then((dbReturnData) => res.json(dbReturnData))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-router.get("/completed-returns", (req, res) => {
-  Return.findAll({
-    where: {
-      condition_id: {
-        [Op.not]: null,
-      }
-    },
   })
     .then((dbReturnData) => res.json(dbReturnData))
     .catch((err) => {

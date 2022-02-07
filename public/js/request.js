@@ -1,4 +1,5 @@
 const $requestForm = document.querySelector("#request-form");
+const $submitButton = document.querySelector("#submit");
 const $reasonInput = document.querySelector("#reason-input");
 
 const handleRequestFormSubmit = (event) => {
@@ -66,3 +67,30 @@ const getAndRenderReasons = () => getReasons().then(renderReasonList);
 getAndRenderReasons();
 
 $requestForm.addEventListener("submit", handleRequestFormSubmit);
+
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+var data = ["Test Company", "Fake Company"];
+
+var searchList = document.createElement("div");
+
+function filterFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("myDropdown");
+  a = div.getElementsByTagName("a");
+  console.log("a", a.textContent);
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "block";
+      console.log("test1", a[i].style.display);
+    } else {
+      a[i].style.display = "none";
+      console.log("test2", a[i].style.display);
+    }
+  }
+}
