@@ -28,14 +28,14 @@ Return.init(
       references: {
         model: "reason",
         key: "id",
-      }
+      },
     },
     condition_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "condition",
         key: "id",
-      }
+      },
     },
     receive_date: {
       type: DataTypes.DATEONLY,
@@ -45,10 +45,13 @@ Return.init(
       references: {
         model: "customer",
         key: "id",
-      }
+      },
     },
     notes: {
       type: DataTypes.TEXT,
+    },
+    credit: {
+      type: DataTypes.BOOLEAN,
     },
   },
   {

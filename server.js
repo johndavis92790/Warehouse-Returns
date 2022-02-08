@@ -5,7 +5,6 @@
 // const app = express();
 // app.use(express.urlencoded({ extended: false }));
 // app.use(express.json());
-// app.use(express.static('./test-htmls'));
 // app.use(require('./controllers'));
 // const sequelize = require('./config/connection');
 
@@ -21,7 +20,8 @@ const session = require("express-session");
 // const exphbs = require("express-handlebars");
 
 const app = express();
-<<<<<<< HEAD
+app.use(express.static('./test-htmls'));
+
 const exphbs = require('express-handlebars');
 const hbs = exphbs.create({});
 
@@ -30,7 +30,6 @@ app.use(express.json());
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-=======
 const PORT = process.env.PORT || 3001;
 
 const sequelize = require("./config/connection");
@@ -64,4 +63,3 @@ app.use(require("./controllers/"));
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log("Now listening"));
 });
->>>>>>> 1f253953d6f2a0ab819cd7812c07435c2de7be90

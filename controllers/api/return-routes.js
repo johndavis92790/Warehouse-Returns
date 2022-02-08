@@ -4,12 +4,48 @@ const { Return, Reason, Condition, Customer } = require("../../models");
 // const withAuth = require("../../utils/auth");
 
 router.get("/", (req, res) => {
-  Return.findAll()
-    .then((dbReturnData) => res.json(dbReturnData))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+  if (req.headers.query === "warehouse") {
+    Return.findAll({
+      where: {
+        condition_id: null,
+      },
+    })
+      .then((dbReturnData) => res.json(dbReturnData))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  } else if (req.headers.query === "office") {
+    Return.findAll({
+      where: {
+        condition_id: {
+          [Op.not]: null,
+        },
+      },
+    })
+      .then((dbReturnData) => res.json(dbReturnData))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  }
+  // else if (req.headers.query === "completed") {
+  //   Return.findAll({
+  //     where: {
+  //       condition_id: {
+  //         [Op.not]: null,
+  //       },
+  //       credit: {
+  //         [Op.not]: null,
+  //       },
+  //     },
+  //   })
+  //     .then((dbReturnData) => res.json(dbReturnData))
+  //     .catch((err) => {
+  //       console.log(err);
+  //       res.status(500).json(err);
+  //     });
+  // }
 });
 
 router.get("/:id", (req, res) => {
@@ -39,65 +75,20 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.get("/warehouse-returns", (req, res) => {
-  Return.findAll({
-    where: {
-      condition_id: {
-        [Op.is]: null
-      }
-    },
-  })
-    .then((dbReturnData) => res.json(dbReturnData))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-
-router.get("/office-returns", (req, res) => {
-  Return.findAll({
-    where: {
-      condition_id: {
-        [Op.not]: null,
-      }
-    },
-  })
-    .then((dbReturnData) => res.json(dbReturnData))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-router.get("/completed-returns", (req, res) => {
-  Return.findAll({
-    where: {
-      condition_id: {
-        [Op.not]: null,
-      }
-    },
-  })
-    .then((dbReturnData) => res.json(dbReturnData))
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
 router.post("/", (req, res) => {
+  console.log("test", req.body);
   Return.create({
-    part_number: req.body.part_number,
+    part_number: req.body.partNumber,
     quantity: req.body.quantity,
-    reason_id: req.body.reason_id,
-    condition_id: req.body.condition_id,
-    customer_id: req.body.customer_id,
+    reason_id: req.body.reason,
+    condition_id: req.body.condition,
+    customer_id: req.body.customer,
     notes: req.body.notes,
   })
     .then((dbReturnData) => {
       // req.session.save(() => {
-      //   req.session.user_id = dbUserData.id;
-
+        // req.session.user_id = dbUserData.id;
+  // res.json(obj);
       res.json(dbReturnData);
       // });
     })
@@ -113,6 +104,8 @@ router.put("/:id", (req, res) => {
     where: {
       id: req.params.id,
     },
+    condition_id: req.body.condition,
+    notes: req.body.notes,
   })
     .then((dbReturnData) => {
       if (!dbReturnData) {

@@ -8,7 +8,7 @@ const customerData = [
     email: "email@email.com",
   },
   {
-    name: "Test Company 2",
+    name: "Fake Company",
     address: "124 Fake St.",
     phone: "801-123-4568",
     email: "email2@email.com",
