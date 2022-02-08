@@ -73,19 +73,38 @@ h3 {
     color: seagreen;
 }
 
+.select-dropdown {
+    display: block;
+    font-size: 1rem;
+    height: 2.5rem;
+    font-weight: lighter;
+    
+    border-color: #dbdbdb;
+    border-radius: 4px;
+    
+}
+
+.option-text {
+    color: #363636;
+    font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+
+}
+
+
 .big-box {
     background-color: lightskyblue;
 }
 
-footer {
-    margin-top: 30px;
-}
 
 .box {
-   border: 3px solid gold;
+    border: 3px solid gold;
 }
 
-.submit {
+.sizing {
     width: 100%;
     height: 27%;
+}
+
+footer {
+    margin-top: 30px;
 }
