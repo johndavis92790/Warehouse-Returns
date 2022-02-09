@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS returns_db;
+
+CREATE DATABASE returns_db;
