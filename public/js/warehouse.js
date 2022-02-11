@@ -96,10 +96,10 @@ const renderConditionList = async (conditions) => {
     const li = condition.name;
     conditionListItems.push(li);
   });
-  // console.log(conditionListItems);
+  console.log(conditionListItems);
   const conditionHTML = conditionListItems.map((conditionText, i) => {
     return `
-    <option id="${i + 1}-condition">
+    <option id="${i + 1}-condition value="${i + 1}">
       ${conditionText}
     </option>
     `;

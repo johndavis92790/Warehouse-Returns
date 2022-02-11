@@ -1,55 +1,50 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Warehouse Returns</title>
-        <link rel="stylesheet" href="../public/stylesheets/style.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    </head>
-
-
-    <body>
-        <header class="main-title">
-            <h1 >Return Request</h1>
-        </header>
-    
-        <div class="columns">
-            <div class="column is-one-quarter">
-
-            </div>
-            
-            <div class="wrapper column is-half">
-                <main>
-                    <div >
-
-                        
-                            <section class="window">
-                                <div class="control  pb-3">
-                                   <input class="input mgb-" type="text" placeholder="Company Name" />
-                                </div>
-                                <div class="control  pb-3">
-                                    <input class="input" type="text" placeholder="Part Number" />
-                                </div>
-                                <div class="control  pb-3">
-                                    <input class="input" type="text" placeholder="Quantity" />
-                                </div>
-                                <div class="control  pb-3">
-                                    <select id="condition-input">
-                                      <option>>Return Reason</option>
-                                    </select>
-                                </div>
-                                <div class="control  pb-3">
-                                    <textarea class="textarea is-success" placeholder="Notes" rows="5"></textarea>
-                                </div>
-                                   <button class="sizing" type="submit">Submit</button>
-                                
-                            </section>
-                       
-                    </div>
-                </main>
-            </div>
-            <div class="column is-one-quarter"></div>
-        </div>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Warehouse Returns</title>
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  </head>
+  <body>
+    <header class="main-title">
+      <h1 >Return Request</h1>
+    </header>
+    <div class="columns">
+      <div class="column is-one-quarter"></div>
+      <div class="wrapper column is-half">
+        <main>
+          <div >
+            <form class="window" id="requestForm">
+              <div class="control  pb-3">
+                <input id="name" name="customer-name" class="input" type="text" placeholder="Company Name" />
+              </div>
+              <div class="control  pb-3">
+                <input id="part-number" name="part-number" class="input" type="text" placeholder="Part Number" />
+              </div>
+              <div class="control  pb-3">
+                <input id="quantity" name="quantity" class="input" type="text" placeholder="Quantity" />
+              </div>
+              <div class="control  pb-3">
+                <div class="select">
+                  <select id="reason-input">
+                  </select>
+                </div>
+              </div>
+              <div class="control  pb-3">
+                <textarea id="notes" name="notes" class="input textarea is-success" placeholder="Notes" rows="5"></textarea>
+              </div>
+                <button class="sizing" type="submit">Submit</button>
+            </form>
+          </div>
+        </main>
+      </div>
+      <div class="column is-one-quarter"></div>
+    </div>
+    <footer>
+      Project Participants: John Davis, Braxton Hotton, Daniel Jardine
+    </footer>
+    <script src="../js/request.js"></script>
+  </body>
+</html> 

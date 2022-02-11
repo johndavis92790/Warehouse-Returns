@@ -1,15 +1,15 @@
-const $requestForm = document.querySelector("#request-form");
+const $requestForm = document.querySelector("#requestForm");
 const $submitButton = document.querySelector("#submit");
-const $reasonInput = document.querySelector("#reason-input");
+const $reasonInput = document.getElementById("reason-input");
+var reason;
 
 const handleRequestFormSubmit = (event) => {
   event.preventDefault();
-
+  
   const customerName = $requestForm.querySelector('[name="customer-name"]').value;
   const partNumber = $requestForm.querySelector('[name="part-number"]').value;
   const quantity = parseInt($requestForm.querySelector('[name="quantity"]').value);
   const notes = $requestForm.querySelector('[name="notes"]').value;
-  const reason = parseInt($requestForm.querySelector('[name="reason"]').value);
   const requestObject = {
     partNumber,
     quantity,
@@ -35,6 +35,11 @@ const handleRequestFormSubmit = (event) => {
     .then((postResponse) => {
       console.log(postResponse);
       alert("Thank you for submitting a request!");
+      document.getElementById("name").value = "";
+      document.getElementById("part-number").value = "";
+      document.getElementById("quantity").value = "";
+      document.getElementById("notes").value = "";
+      document.getElementById("reason-input").value = "";
     });
 };
 
@@ -55,9 +60,10 @@ const renderReasonList = async (reasons) => {
   });
   console.log("list", reasonListItems);
   const reasonHTML = reasonListItems.map((reasonText, i) => {
-      return `<option id="${i+1}-reason" value="${i+1}">${reasonText}</option>`;
+      return `<option value="${i + 1}">${reasonText}</option>`;
     }
   );
+  reasonHTML.unshift(`<option>Choose Reason</option>`);
   $reasonInput.innerHTML = reasonHTML.join("");
   console.log(reasonHTML);
 };
@@ -65,6 +71,10 @@ const renderReasonList = async (reasons) => {
 const getAndRenderReasons = () => getReasons().then(renderReasonList);
 
 getAndRenderReasons();
+
+$reasonInput.onchange = function () {
+  reason = document.getElementById("reason-input").value;
+};
 
 $requestForm.addEventListener("submit", handleRequestFormSubmit);
 
