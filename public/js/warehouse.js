@@ -99,9 +99,12 @@ const renderConditionList = async (conditions) => {
   console.log(conditionListItems);
   const conditionHTML = conditionListItems.map((conditionText, i) => {
     return `
-    <option id="${i + 1}-condition" value="${i + 1}">${conditionText}</option>
+    <option id="${i + 1}-condition value="${i + 1}">
+      ${conditionText}
+    </option>
     `;
   });
+  console.log(conditionHTML);
   $conditionInput.innerHTML = conditionHTML.join("");
 };
 

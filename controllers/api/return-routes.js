@@ -28,6 +28,14 @@ router.get("/", (req, res) => {
         console.log(err);
         res.status(500).json(err);
       });
+  } else if (req.headers.query === "all") {
+    Return.findAll({
+    })
+      .then((dbReturnData) => res.json(dbReturnData))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   }
   // else if (req.headers.query === "completed") {
   //   Return.findAll({
