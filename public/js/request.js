@@ -5,17 +5,25 @@ var reason;
 
 const handleRequestFormSubmit = (event) => {
   event.preventDefault();
-  
-  const customerName = $requestForm.querySelector('[name="customer-name"]').value;
-  const partNumber = $requestForm.querySelector('[name="part-number"]').value;
+
+  const customerName = $requestForm.querySelector('[name="customerName"]').value;
+  const customerAddress = $requestForm.querySelector('[name="customerAddress"]').value;
+  const customerPhone = $requestForm.querySelector('[name="customerPhone"]').value;
+  const customerEmail = $requestForm.querySelector('[name="customerEmail"]').value;
+  const partNumber = $requestForm.querySelector('[name="partNumber"]').value;
   const quantity = parseInt($requestForm.querySelector('[name="quantity"]').value);
   const notes = $requestForm.querySelector('[name="notes"]').value;
+  var currentDate = dayjs().format("YYYY-MM-DD");
   const requestObject = {
+    customerName,
+    customerAddress,
+    customerPhone,
+    customerEmail,
     partNumber,
     quantity,
     reason,
-    customerName,
     notes,
+    currentDate,
   };
   console.log("input", requestObject);
   fetch("http://localhost:3001/api/return", {
@@ -35,8 +43,11 @@ const handleRequestFormSubmit = (event) => {
     .then((postResponse) => {
       console.log(postResponse);
       alert("Thank you for submitting a request!");
-      document.getElementById("name").value = "";
-      document.getElementById("part-number").value = "";
+      document.getElementById("customerName").value = "";
+      document.getElementById("customerAddress").value = "";
+      document.getElementById("customerPhone").value = "";
+      document.getElementById("customerEmail").value = "";
+      document.getElementById("partNumber").value = "";
       document.getElementById("quantity").value = "";
       document.getElementById("notes").value = "";
       document.getElementById("reason-input").value = "";
@@ -77,30 +88,3 @@ $reasonInput.onchange = function () {
 };
 
 $requestForm.addEventListener("submit", handleRequestFormSubmit);
-
-// function myFunction() {
-//   document.getElementById("myDropdown").classList.toggle("show");
-// }
-
-// var data = ["Test Company", "Fake Company"];
-
-// var searchList = document.createElement("div");
-
-// function filterFunction() {
-//   var input, filter, ul, li, a, i;
-//   input = document.getElementById("myInput");
-//   filter = input.value.toUpperCase();
-//   div = document.getElementById("myDropdown");
-//   a = div.getElementsByTagName("a");
-//   console.log("a", a.textContent);
-//   for (i = 0; i < a.length; i++) {
-//     txtValue = a[i].textContent || a[i].innerText;
-//     if (txtValue.toUpperCase().indexOf(filter) > -1) {
-//       a[i].style.display = "block";
-//       console.log("test1", a[i].style.display);
-//     } else {
-//       a[i].style.display = "none";
-//       console.log("test2", a[i].style.display);
-//     }
-//   }
-// }

@@ -2,22 +2,26 @@ const $returnList = document.querySelector("#return-list");
 const $currentReturnInfo = document.querySelector("#current-return-info");
 const $conditionInput = document.querySelector("#condition-input");
 const $updateForm = document.querySelector("#update-form");
+const $updateButton = document.querySelector("#submitButton");
+var condition;
+
 var jsonReturns = {};
+var chosenReturn;
 var currentId;
 
 const handleUpdateFormSubmit = (event) => {
   event.preventDefault();
-
-  const condition = $updateForm.querySelector('[name="condition"]').value;
-  const notes = $updateForm.querySelector('[name="add-notes"]').value;
-
-  currentId = currentId + 1;
+  
+  const notes = $updateForm.querySelector('[name="notes"]').value;
+  let notesCombined = chosenReturn.notes.concat("\n", notes);
+  console.log(notesCombined);
+  condition = parseInt(condition);
   const updateObject = {
-    currentId,
     condition,
-    notes
+    notesCombined
   };
 
+  console.log("updateObject", updateObject);
   const updateURL = "http://localhost:3001/api/return/" + currentId;
   console.log("input", updateURL);
   fetch(updateURL, {
@@ -29,16 +33,16 @@ const handleUpdateFormSubmit = (event) => {
     body: JSON.stringify(updateObject),
   })
     .then((response) => {
+      console.log(response);
       if (response.ok) {
         return response.json();
       }
       alert("Error: " + response.statusText);
     })
-    .then((postResponse) => {
-      console.log(postResponse);
+    .then(() => {
       alert("Thank you for submitting an update!");
       $currentReturnInfo.innerHTML = '';
-      document.getElementById("add-notes").value = "";
+      document.getElementById("notes").value = "";
       getAndRenderReturns();
     });
 };
@@ -54,13 +58,8 @@ const getReturns = () =>
 
 const renderReturnList = async (returns) => {
   jsonReturns = await returns.json();
-  let returnListParts = [];
-  jsonReturns.forEach((partNumber) => {
-    const li = partNumber.part_number;
-    returnListParts.push(li);
-  });
-  returnHTML = returnListParts.map((returnText, i) => {
-    return `<button id="${i + 1}">Part#- ${returnText}</button></br>`;
+  returnHTML = jsonReturns.map((jsonReturns) => {
+    return `<option class="has-background-danger has-text-light" id="${jsonReturns.id}">${jsonReturns.part_number}</option>`;
   });
   $returnList.innerHTML = returnHTML.join("");
   $returnList.addEventListener("click", renderChosenReturn);
@@ -68,16 +67,24 @@ const renderReturnList = async (returns) => {
 
 const renderChosenReturn = (event) => {
   event.preventDefault();
-  console.log(event);
-  currentId = event.path[0].id - 1;
-  const returnHTML = 
-    `<p>RGA# - </p><span id="rga-number">${jsonReturns[currentId].id}</span>
-      <p>Quantity - </p><span id="quantity">${jsonReturns[currentId].quantity}</span>
-      <p>Part# - </p><span id="part-number">${jsonReturns[currentId].part_number}</span>
-      <p>Customer Name - </p><span id="customer-name">${jsonReturns[currentId].customer_id}</span>
-      <p>Date of request - </p><span id="request-date">${jsonReturns[currentId].createdAt}</span>
-      <p>Notes - </p><span id="notes">${jsonReturns[currentId].notes}</span>`;
-  
+  currentId = parseInt(event.path[0].id);
+  var findReturn = 
+    jsonReturns.map(function(jsonReturns, i) {
+      if (currentId === jsonReturns.id) {
+        return i;
+      };
+    });
+  chosenReturn = jsonReturns[findReturn];
+  const returnHTML = `<p>RGA# - <span id="rga-number">${chosenReturn.id}</span></p>
+      <p>Quantity - <span id="quantity">${chosenReturn.quantity}</span></p>
+      <p>Part# - <span id="part-number">${chosenReturn.part_number}</span></p>
+      <p>Customer Name - <span id="customer-name">${chosenReturn.customer_name}</span></p>
+      <p>Customer Address - <span id="customer-address">${chosenReturn.customer_address}</span></p>
+      <p>Customer Phone - <span id="customer-phone">${chosenReturn.customer_phone}</span></p>
+      <p>Customer Email - <span id="customer-email">${chosenReturn.customer_email}</span></p>
+      <p>Date of Request - <span id="request-date">${chosenReturn.request_date}</span></p>
+      <p>Return Reason - <span id="request-date">${chosenReturn.reason.name}</span></p>
+      <p>Customer Notes - <span id="notes">${chosenReturn.notes}</span></p>`;
   $currentReturnInfo.innerHTML = returnHTML;
 }; 
 
@@ -91,20 +98,10 @@ const getConditions = () =>
 
 const renderConditionList = async (conditions) => {
   let jsonConditions = await conditions.json();
-  let conditionListItems = [];
-  jsonConditions.forEach((condition) => {
-    const li = condition.name;
-    conditionListItems.push(li);
-  });
-  console.log(conditionListItems);
-  const conditionHTML = conditionListItems.map((conditionText, i) => {
+  const conditionHTML = jsonConditions.map((jsonConditions) => {
     return `
-    <option id="${i + 1}-condition value="${i + 1}">
-      ${conditionText}
-    </option>
-    `;
+    <option name="conditon" value="${jsonConditions.id}">${jsonConditions.name}</option>`;
   });
-  console.log(conditionHTML);
   $conditionInput.innerHTML = conditionHTML.join("");
 };
 
@@ -116,5 +113,9 @@ const getAndRenderReturns = () => getReturns().then(renderReturnList);
 
 getAndRenderReturns();
 
-$updateForm.addEventListener("submit", handleUpdateFormSubmit);
+$conditionInput.onchange = function () {
+  condition = document.getElementById("condition-input").value;
+};
+
+$updateButton.addEventListener("click", handleUpdateFormSubmit);
 

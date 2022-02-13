@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Warehouse Returns</title>
-    <link rel="stylesheet" href="../stylesheets/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="./stylesheets/style.css">
   </head>
 
   <body>
@@ -13,60 +13,39 @@
       <h1 >Warehouse Action Items</h1>
     </header>
 
-    <div class="columns">
-      <div id="return-list" class="column is-one-quarter ml-1" >
-        <!-- <div>
-          <button class="control btn">Example Button 1</button>
-        </div>
-        <div>
-          <button class="control btn">Example Button 2</button>
-        </div>
-        <div>
-          <button class="control btn">Example Button 3</button>
-        </div> -->
+
+    <div class="columns is-desktop">
+      <div class="select is-multiple column is-one-quarter ml-5">
+        <h3 class="is-size-4 has-text-centered">Part Numbers</h3>
+        <select returns id="return-list" class="column is-full is-full-mobile" multiple size="10"></select>
       </div>
       
-      <div class="column is-three-quarters has-background-lightskyblue ">
+      <div class="column is-two-thirds has-background-lightskyblue m-3">
+        <h3 class="is-size-4 has-text-centered mb-3">Warehouse Action Items</h3>
         <div class="box columns">
           <section class="column is-half big-box">
-            <h2>Return Details:</h2>
+            <h3 class="is-size-6 has-text-left">Return Details:</h3>
             <section>
-              <div id="current-return-info" class="RGA">
-                <!-- <h3>RGA#</h3>
-                <h3>Quantity</h3>
-                <h3>Part</h3>
-                <h3>Customer Name</h3>
-                <h3>Timedate of request</h3> -->
-                <h3>
-                  Warehouse Notes:
-                  <span>
-                    <textarea class="textarea is-success" placeholder="Notes" rows="3" lines="3"> </textarea>
-                  </span>
-                </h3>
-              </div>
-
+              <div id="current-return-info" class="RGA"></div>
             </section>
           </section>
           <section id="update-form" class="column is-half big-box">
-            <!-- <h2>Choose Condition:</h2> -->
             <div class="control">
+              <h2 class="is-size-6 has-text-left">Choose Condition</h2>
               <div class="select">
-                <select id="condition-input">
-                  <option>Condition</option>
-                </select>
+                <select id="condition-input" class="is-full is-full-mobile"></select>
               </div>
             </div>
             <div class="spacing">
-              <h2>Add Notes:</h2>
-              <span>
-                <input id="add-notes" class="textarea is-success" placeholder="Notes:" rows="5"></input>
-              </span> 
+              <h2 class="is-size-6 has-text-left">Add Notes:</h2>
+                <textarea id="notes" name="notes" class="textarea is-success" placeholder="Notes:" rows="1"></textarea>
             </div>
-            <button class="sizing" type="submit">Update Part</button>
+            <button id="submitButton" class="sizing" type="submit">Update Part</button>
           </section>
         </div>
       </div>
     </div>
-    <script src="../js/warehouse.js"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script src="../js/warehouse.js"></script>
   </body>
 </html>
