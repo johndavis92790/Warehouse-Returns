@@ -27,7 +27,7 @@ const renderReturnList = async (returns) => {
 };
 
 const getChosenReturn = (id) =>
-  fetch("http://localhost:3001/api/return/" + id, {
+  fetch("/api/return/" + id, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

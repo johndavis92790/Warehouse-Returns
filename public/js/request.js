@@ -29,7 +29,7 @@ const handleRequestFormSubmit = (event) => {
     request_date,
     status,
   };
-  fetch("http://localhost:3001/api/return", {
+  fetch("/api/return", {
     method: "POST",
     headers: {
       Accept: "application/json",

@@ -45,7 +45,7 @@ const handleUpdateFormSubmit = (event) => {
       status,
     };
   }
-  fetch("http://localhost:3001/api/return/" + currentId, {
+  fetch("/api/return/" + currentId, {
     method: "PUT",
     headers: {
       Accept: "application/json",
@@ -102,7 +102,7 @@ const renderReturnList = async (returns) => {
 };
 
 const getChosenReturn = (id) =>
-  fetch("http://localhost:3001/api/return/" + id, {
+  fetch("/api/return/" + id, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
