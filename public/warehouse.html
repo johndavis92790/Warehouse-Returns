@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Warehouse Returns</title>
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  </head>
+
+  <body>
+    <header class="main-title">
+      <h1 >Warehouse Action Items</h1>
+    </header>
+
+    <div class="columns">
+      <div id="return-list" class="column is-one-quarter ml-1" >
+        <!-- <div>
+          <button class="control btn">Example Button 1</button>
+        </div>
+        <div>
+          <button class="control btn">Example Button 2</button>
+        </div>
+        <div>
+          <button class="control btn">Example Button 3</button>
+        </div> -->
+      </div>
+      
+      <div class="column is-three-quarters has-background-lightskyblue ">
+        <div class="box columns">
+          <section class="column is-half big-box">
+            <h2>Return Details:</h2>
+            <section>
+              <div id="current-return-info" class="RGA">
+                <!-- <h3>RGA#</h3>
+                <h3>Quantity</h3>
+                <h3>Part</h3>
+                <h3>Customer Name</h3>
+                <h3>Timedate of request</h3> -->
+                <h3>
+                  Warehouse Notes:
+                  <span>
+                    <textarea class="textarea is-success" placeholder="Notes" rows="3" lines="3"> </textarea>
+                  </span>
+                </h3>
+              </div>
+
+            </section>
+          </section>
+          <section id="update-form" class="column is-half big-box">
+            <!-- <h2>Choose Condition:</h2> -->
+            <div class="control">
+              <div class="select">
+                <select id="condition-input">
+                  <option>Condition</option>
+                </select>
+              </div>
+            </div>
+            <div class="spacing">
+              <h2>Add Notes:</h2>
+              <span>
+                <input id="add-notes" class="textarea is-success" placeholder="Notes:" rows="5"></input>
+              </span> 
+            </div>
+            <button class="sizing" type="submit">Update Part</button>
+          </section>
+        </div>
+      </div>
+    </div>
+    <script src="../js/warehouse.js"></script>
+  </body>
+</html>

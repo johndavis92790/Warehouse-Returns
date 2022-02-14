@@ -1,6 +1,6 @@
 const $returnList = document.querySelector("#return-list");
 const $currentReturnInfo = document.querySelector("#current-return-info");
-const $creditInput = document.querySelector("#credit-input");
+const $reasonInput = document.querySelector("#reason-input");
 const $updateForm = document.querySelector("#update-form");
 var jsonReturns = {};
 var currentId;
@@ -8,17 +8,13 @@ var currentId;
 const handleUpdateFormSubmit = (event) => {
   event.preventDefault();
 
-  if ($creditInput.checked) {
-    var credit = true;
-  } else {
-    var credit = false;
-  }
+  var reason = $updateForm.querySelector("#reason-input");
   const notes = $updateForm.querySelector('#add-notes').value;
 
   currentId = currentId + 1;
   const updateObject = {
     currentId,
-    credit,
+    reason,
     notes,
   };
 
