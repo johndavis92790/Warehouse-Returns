@@ -1,30 +1,51 @@
-const $returnList = document.querySelector("#return-list");
+const $tealReturnList = document.querySelector("#teal-return-list");
+const $redReturnList = document.querySelector("#red-return-list");
 const $currentReturnInfo = document.querySelector("#current-return-info");
-const $creditInput = document.querySelector("#credit-input");
+const $actionInput = document.querySelector("#action-input");
 const $updateForm = document.querySelector("#update-form");
+const $stockInput = document.querySelector("#stock-input");
+const $tealDiv = document.querySelector("#teal-div");
+$tealDiv.style.display = "none";
+const $redDiv = document.querySelector("#red-div");
+$redDiv.style.display = "none";
+const $creditBoolean = document.querySelector("#credit-input");
+const $updateButton = document.querySelector("#submitButton");
+var action_id = 1;
+
 var jsonReturns = {};
+var chosenReturn;
 var currentId;
 
 const handleUpdateFormSubmit = (event) => {
   event.preventDefault();
 
-  if ($creditInput.checked) {
-    var credit = true;
+  const notesAdd = $updateForm.querySelector('[name="notes_add"]').value;
+  if (notesAdd) {
+    var notes = chosenReturn.notes.concat(" | Office Notes - ", notesAdd);
   } else {
-    var credit = false;
+    var notes = chosenReturn.notes;
   }
-  const notes = $updateForm.querySelector('#add-notes').value;
-
-  currentId = currentId + 1;
-  const updateObject = {
-    currentId,
-    credit,
-    notes,
-  };
-
-  const updateURL = "http://localhost:3001/api/return/" + currentId;
-  console.log("input", updateURL);
-  fetch(updateURL, {
+  if ($creditBoolean.checked) {
+    var credit = true;
+    action_id = parseInt(action_id);
+    console.log("action_id", action_id);
+    var status = "green";
+    var updateObject = {
+      credit,
+      action_id,
+      notes,
+      status,
+    }
+  } else if ($stockInput) {
+    var stock_corrected = true;
+    var status = "blue";
+    var updateObject = {
+      stock_corrected,
+      notes,
+      status,
+    };
+  }
+  fetch("http://localhost:3001/api/return/" + currentId, {
     method: "PUT",
     headers: {
       Accept: "application/json",
@@ -33,17 +54,19 @@ const handleUpdateFormSubmit = (event) => {
     body: JSON.stringify(updateObject),
   })
     .then((response) => {
+      console.log(response);
       if (response.ok) {
         return response.json();
       }
       alert("Error: " + response.statusText);
     })
-    .then((postResponse) => {
-      console.log(postResponse);
+    .then(() => {
       alert("Thank you for submitting an update!");
       $currentReturnInfo.innerHTML = "";
-      document.getElementById("add-notes").value = "";
-      $creditInput.checked = false;
+      document.getElementById("notes_add").value = "";
+      $creditBoolean.checked = false;
+      $redDiv.style.display = "none";
+      $tealDiv.style.display = "none";
       getAndRenderReturns();
     });
 };
@@ -53,45 +76,97 @@ const getReturns = () =>
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      query: "office",
+      query: "all",
     },
   });
 
 const renderReturnList = async (returns) => {
   jsonReturns = await returns.json();
-  let returnListParts = [];
-  jsonReturns.forEach((partNumber) => {
-    const li = partNumber.part_number;
-    returnListParts.push(li);
+  const tealReturns = jsonReturns.filter((jsonReturns) => {
+    return jsonReturns.status === "teal";
   });
-  returnHTML = returnListParts.map((returnText, i) => {
-    return `
-    <div>
-      <button id="${i + 1}" class="control btn">Part#- ${returnText}</button>
-    </div>`;
+  tealHTML = tealReturns.map((tealReturns) => {
+    return `<option class="has-background-primary" id="${tealReturns.id}">${tealReturns.part_number}</option>`;
   });
-  $returnList.innerHTML = returnHTML.join("");
-  $returnList.addEventListener("click", renderChosenReturn);
+  $tealReturnList.innerHTML = tealHTML.join("");
+  $tealReturnList.addEventListener("click", getAndRenderChosenReturn);
+
+  const redReturns = jsonReturns.filter((jsonReturns) => {
+    return jsonReturns.status === "red";
+  });
+  redHTML = redReturns.map((redReturns) => {
+    return `<option class="has-background-danger" id="${redReturns.id}">${redReturns.part_number}</option>`;
+  });
+  $redReturnList.innerHTML = redHTML.join("");
+  $redReturnList.addEventListener("click", getAndRenderChosenReturn);
 };
 
-const renderChosenReturn = (event) => {
-  event.preventDefault();
-  console.log(event);
-  currentId = event.path[0].id - 1;
-  const returnHTML = `<h3>RGA# - </h3><span id="rga-number">${jsonReturns[currentId].id}</span>
-                  <h3>Quantity - </h3><span id="quantity">${jsonReturns[currentId].quantity}</span>
-                  <h3>Part - </h3><span id="part-number">${jsonReturns[currentId].part_number}</span>
-                  <h3>Customer Name - </h3><span id="customer-name">${jsonReturns[currentId].customer_id}</span>
-                  <h3>Request Date - </h3><span id="request-date">${jsonReturns[currentId].createdAt}</span>
-                  <h3>Customer Notes - </h3><span id="notes">${jsonReturns[currentId].notes}</span>
-                  <h3>Condition of Part - </h3><span id="notes">${jsonReturns[currentId].condition_id}</span>
-                  <h3>Timedate of Warehouse Check - </h3><span id="notes">${jsonReturns[currentId].updatedAt}</span>`;
+const getChosenReturn = (id) =>
+  fetch("http://localhost:3001/api/return/" + id, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
+const renderChosenReturn = async (jsonReturn) => {
+  chosenReturn = await jsonReturn.json();
+  $tealDiv.style.display = "none";
+  $redDiv.style.display = "none";
+  currentId = chosenReturn.id;
+  let returnHTML = `<p>RGA# - <span id="rga-number">${chosenReturn.id}</span></p>
+      <p>Quantity - <span id="quantity">${chosenReturn.quantity}</span></p>
+      <p>Part# - <span id="part-number">${chosenReturn.part_number}</span></p>
+      <p>Customer Name - <span id="customer-name">${chosenReturn.customer_name}</span></p>
+      <p>Customer Address - <span id="customer-address">${chosenReturn.customer_address}</span></p>
+      <p>Customer Phone - <span id="customer-phone">${chosenReturn.customer_phone}</span></p>
+      <p>Customer Email - <span id="customer-email">${chosenReturn.customer_email}</span></p>
+      <p>Date of Request - <span id="request-date">${chosenReturn.request_date}</span></p>
+      <p>Return Reason - <span id="request-name">${chosenReturn.reason.name}</span></p>
+      <p>Condition - <span id="condition">${chosenReturn.condition.name}</span></p>
+      <p>Notes - <span id="notes">${chosenReturn.notes}</span></p>`;
   $currentReturnInfo.innerHTML = returnHTML;
+  if (chosenReturn.status === "teal") {
+    $tealDiv.style.display = "block";
+  } else if (chosenReturn.status === "red") {
+    const stockHTML = `<p>Stock Count - <span id="current_stock">${chosenReturn.current_stock}</span></p>`;
+    const combined = returnHTML.concat("\n", stockHTML);
+    $currentReturnInfo.innerHTML = combined;
+    $redDiv.style.display = "block";
+  }
 };
+
+const getActions = () =>
+  fetch("/api/action", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+const renderActionList = async (actions) => {
+  let jsonActions = await actions.json();
+  const actionHTML = jsonActions.map((jsonActions) => {
+    return `
+    <option name="action" value="${jsonActions.id}">${jsonActions.name}</option>`;
+  });
+  $actionInput.innerHTML = actionHTML.join("");
+};
+
+const getAndRenderActions = () => getActions().then(renderActionList);
 
 const getAndRenderReturns = () => getReturns().then(renderReturnList);
 
-getAndRenderReturns();
+const getAndRenderChosenReturn = (event) => {
+  getChosenReturn(event.path[0].id).then(renderChosenReturn);
+};
 
-$updateForm.addEventListener("submit", handleUpdateFormSubmit);
+$actionInput.onchange = function () {
+  action_id = document.getElementById("action-input").value;
+};
+
+const init = () => getAndRenderReturns().then(getAndRenderActions);
+
+init();
+
+$updateButton.addEventListener("click", handleUpdateFormSubmit);

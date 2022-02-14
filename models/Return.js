@@ -19,9 +19,27 @@ Return.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    date: {
+    request_date: {
       type: DataTypes.DATEONLY,
-      createdAt: sequelize.DATE,
+      // 2021-07-06
+    },
+    condition_date: {
+      type: DataTypes.DATEONLY,
+    },
+    credit_date: {
+      type: DataTypes.DATEONLY,
+    },
+    action_date: {
+      type: DataTypes.DATEONLY,
+    },
+    current_stock: {
+      type: DataTypes.INTEGER,
+    },
+    stock_date: {
+      type: DataTypes.DATEONLY,
+    },
+    stock_corrected: {
+      type: DataTypes.BOOLEAN,
     },
     reason_id: {
       type: DataTypes.INTEGER,
@@ -37,21 +55,33 @@ Return.init(
         key: "id",
       },
     },
-    receive_date: {
-      type: DataTypes.DATEONLY,
+    customer_name: {
+      type: DataTypes.STRING,
     },
-    customer_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "customer",
-        key: "id",
-      },
+    customer_address: {
+      type: DataTypes.STRING,
+    },
+    customer_phone: {
+      type: DataTypes.STRING,
+    },
+    customer_email: {
+      type: DataTypes.STRING,
     },
     notes: {
       type: DataTypes.TEXT,
     },
     credit: {
       type: DataTypes.BOOLEAN,
+    },
+    action_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "action",
+        key: "id",
+      },
+    },
+    status: {
+      type: DataTypes.STRING,
     },
   },
   {
