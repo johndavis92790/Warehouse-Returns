@@ -1,5 +1,10 @@
 const router = require('express').Router();
 
+
+router.get('/', (req, res) => {
+    res.render('homepage');
+})
+
 router.get('/', (req,res) => {
    res.sendFile(path.join(__dirname, './test-htmls/index.html'));
 });
