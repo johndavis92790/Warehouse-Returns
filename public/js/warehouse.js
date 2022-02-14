@@ -1,9 +1,16 @@
-const $returnList = document.querySelector("#return-list");
+const $yellowReturnList = document.querySelector("#yellow-return-list");
+const $greenReturnList = document.querySelector("#green-return-list");
 const $currentReturnInfo = document.querySelector("#current-return-info");
 const $conditionInput = document.querySelector("#condition-input");
 const $updateForm = document.querySelector("#update-form");
+const $yellowDiv = document.querySelector("#yellow-div");
+$yellowDiv.style.display = "none";
+const $greenDiv = document.querySelector("#green-div");
+$greenDiv.style.display = "none";
+const $actionName = document.getElementById("action-name");
+const $actionBoolean = document.getElementById("action-input");
 const $updateButton = document.querySelector("#submitButton");
-var condition;
+var condition_id;
 
 var jsonReturns = {};
 var chosenReturn;
@@ -12,19 +19,29 @@ var currentId;
 const handleUpdateFormSubmit = (event) => {
   event.preventDefault();
   
-  const notes = $updateForm.querySelector('[name="notes"]').value;
-  let notesCombined = chosenReturn.notes.concat("\n", notes);
-  console.log(notesCombined);
-  condition = parseInt(condition);
-  const updateObject = {
-    condition,
-    notesCombined
-  };
-
-  console.log("updateObject", updateObject);
-  const updateURL = "http://localhost:3001/api/return/" + currentId;
-  console.log("input", updateURL);
-  fetch(updateURL, {
+  const notesAdd = $updateForm.querySelector('[name="notes_add"]').value;
+  let notes = chosenReturn.notes.concat("\n", notesAdd);
+  if ($actionBoolean.checked) {
+    var action = true;
+  } else {
+    var action = null;
+  }
+  if (action) {
+    var status = "red";
+    var updateObject = {
+      notes,
+      status,
+    };
+  } else {
+    var status = "teal";
+    condition_id = parseInt(condition_id);
+    var updateObject = {
+      condition_id,
+      notes,
+      status,
+    };
+  }
+  fetch("http://localhost:3001/api/return/" + currentId, {
     method: "PUT",
     headers: {
       Accept: "application/json",
@@ -42,7 +59,7 @@ const handleUpdateFormSubmit = (event) => {
     .then(() => {
       alert("Thank you for submitting an update!");
       $currentReturnInfo.innerHTML = '';
-      document.getElementById("notes").value = "";
+      document.getElementById("notes_add").value = "";
       getAndRenderReturns();
     });
 };
@@ -52,29 +69,44 @@ const getReturns = () =>
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "query": "warehouse",
+      "query": "all",
     },
   });
 
 const renderReturnList = async (returns) => {
   jsonReturns = await returns.json();
-  returnHTML = jsonReturns.map((jsonReturns) => {
-    return `<option class="has-background-danger has-text-light" id="${jsonReturns.id}">${jsonReturns.part_number}</option>`;
+  const yellowReturns = jsonReturns.filter((jsonReturns) => {
+    return jsonReturns.status === 'yellow';
   });
-  $returnList.innerHTML = returnHTML.join("");
-  $returnList.addEventListener("click", renderChosenReturn);
+  yellowHTML = yellowReturns.map((yellowReturns) => {
+    return `<option class="has-background-warning" id="${yellowReturns.id}">${yellowReturns.part_number}</option>`;
+  });
+  $yellowReturnList.innerHTML = yellowHTML.join("");
+  $yellowReturnList.addEventListener("click", getAndRenderChosenReturn);
+
+  const greenReturns = jsonReturns.filter((jsonReturns) => {
+    return jsonReturns.status === "green";
+  });
+  greenHTML = greenReturns.map((greenReturns) => {
+    return `<option class="has-background-success" id="${greenReturns.id}">${greenReturns.part_number}</option>`;
+  });
+  $greenReturnList.innerHTML = greenHTML.join("");
+  $greenReturnList.addEventListener("click", getAndRenderChosenReturn);
 };
 
-const renderChosenReturn = (event) => {
-  event.preventDefault();
-  currentId = parseInt(event.path[0].id);
-  var findReturn = 
-    jsonReturns.map(function(jsonReturns, i) {
-      if (currentId === jsonReturns.id) {
-        return i;
-      };
-    });
-  chosenReturn = jsonReturns[findReturn];
+const getChosenReturn = (id) => 
+  fetch("http://localhost:3001/api/return/" + id, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+const renderChosenReturn = async (jsonReturn) => {
+  chosenReturn = await jsonReturn.json();
+  $yellowDiv.style.display = "none";
+  $greenDiv.style.display = "none";
+  currentId = chosenReturn.id;
   const returnHTML = `<p>RGA# - <span id="rga-number">${chosenReturn.id}</span></p>
       <p>Quantity - <span id="quantity">${chosenReturn.quantity}</span></p>
       <p>Part# - <span id="part-number">${chosenReturn.part_number}</span></p>
@@ -84,8 +116,15 @@ const renderChosenReturn = (event) => {
       <p>Customer Email - <span id="customer-email">${chosenReturn.customer_email}</span></p>
       <p>Date of Request - <span id="request-date">${chosenReturn.request_date}</span></p>
       <p>Return Reason - <span id="request-date">${chosenReturn.reason.name}</span></p>
-      <p>Customer Notes - <span id="notes">${chosenReturn.notes}</span></p>`;
+      <p>Notes - <span id="notes">${chosenReturn.notes}</span></p>`;
   $currentReturnInfo.innerHTML = returnHTML;
+  if (chosenReturn.status === "yellow") {
+    $yellowDiv.style.display = "block";
+  } else if (chosenReturn.status === "green") {
+    $actionName.innerHTML = chosenReturn.action.name;
+    $greenDiv.style.display = "block";
+  }
+  
 }; 
 
 const getConditions = () =>
@@ -107,15 +146,19 @@ const renderConditionList = async (conditions) => {
 
 const getAndRenderConditions = () => getConditions().then(renderConditionList);
 
-getAndRenderConditions();
-
 const getAndRenderReturns = () => getReturns().then(renderReturnList);
 
-getAndRenderReturns();
+const getAndRenderChosenReturn = (event) => {
+  getChosenReturn(event.path[0].id)
+    .then(renderChosenReturn);
+}
 
 $conditionInput.onchange = function () {
-  condition = document.getElementById("condition-input").value;
+  condition_id = document.getElementById("condition-input").value;
 };
 
-$updateButton.addEventListener("click", handleUpdateFormSubmit);
+const init = () => getAndRenderReturns().then(getAndRenderConditions);
 
+init();
+
+$updateButton.addEventListener("click", handleUpdateFormSubmit);

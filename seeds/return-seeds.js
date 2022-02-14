@@ -13,7 +13,8 @@ const returnData = [
     credit: false,
     request_date: "2022-02-12",
     condition_id: 1,
-    action_id: 2,
+    action_id: 1,
+    status: "green",
   },
   {
     part_number: "5678TEST",
@@ -27,7 +28,8 @@ const returnData = [
     credit: false,
     request_date: "2022-02-13",
     condition_id: null,
-    action_id: 4,
+    action_id: null,
+    status: "yellow",
   },
 ];
 

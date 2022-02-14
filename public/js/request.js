@@ -6,24 +6,26 @@ var reason;
 const handleRequestFormSubmit = (event) => {
   event.preventDefault();
 
-  const customerName = $requestForm.querySelector('[name="customerName"]').value;
-  const customerAddress = $requestForm.querySelector('[name="customerAddress"]').value;
-  const customerPhone = $requestForm.querySelector('[name="customerPhone"]').value;
-  const customerEmail = $requestForm.querySelector('[name="customerEmail"]').value;
-  const partNumber = $requestForm.querySelector('[name="partNumber"]').value;
+  const customer_name = $requestForm.querySelector('[name="customer_name"]').value;
+  const customer_address = $requestForm.querySelector('[name="customer_address"]').value;
+  const customer_phone = $requestForm.querySelector('[name="customer_phone"]').value;
+  const customer_email = $requestForm.querySelector('[name="customer_email"]').value;
+  const part_number = $requestForm.querySelector('[name="part_number"]').value;
   const quantity = parseInt($requestForm.querySelector('[name="quantity"]').value);
   const notes = $requestForm.querySelector('[name="notes"]').value;
-  var currentDate = dayjs().format("YYYY-MM-DD");
+  var request_date = dayjs().format("YYYY-MM-DD");
+  const status = "yellow"
   const requestObject = {
-    customerName,
-    customerAddress,
-    customerPhone,
-    customerEmail,
-    partNumber,
+    customer_name,
+    customer_address,
+    customer_phone,
+    customer_email,
+    part_number,
     quantity,
     reason,
     notes,
-    currentDate,
+    request_date,
+    status,
   };
   console.log("input", requestObject);
   fetch("http://localhost:3001/api/return", {

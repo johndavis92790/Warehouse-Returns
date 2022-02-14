@@ -32,8 +32,14 @@ Return.init(
     action_date: {
       type: DataTypes.DATEONLY,
     },
+    current_stock: {
+      type: DataTypes.INTEGER,
+    },
     stock_date: {
       type: DataTypes.DATEONLY,
+    },
+    stock_corrected: {
+      type: DataTypes.INTEGER,
     },
     reason_id: {
       type: DataTypes.INTEGER,
@@ -73,6 +79,9 @@ Return.init(
         model: "action",
         key: "id",
       },
+    },
+    status: {
+      type: DataTypes.STRING,
     },
   },
   {

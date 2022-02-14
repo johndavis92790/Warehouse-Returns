@@ -1,59 +1,30 @@
 const router = require("express").Router();
 const { Op } = require("sequelize");
-const { Return, Reason, Condition, Customer } = require("../../models");
+const { Return, Reason, Condition, Customer, Action } = require("../../models");
 // const withAuth = require("../../utils/auth");
 
 router.get("/", (req, res) => {
-  if (req.headers.query === "warehouse") {
-    Return.findAll({
-      where: {
-        condition_id: null,
+  Return.findAll({
+    include: [
+      {
+        model: Reason,
+        attributes: ["id", "name"],
       },
-    })
-      .then((dbReturnData) => res.json(dbReturnData))
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-  } else if (req.headers.query === "office") {
-    Return.findAll({
-      where: {
-        condition_id: {
-          [Op.not]: null,
-        },
+      {
+        model: Condition,
+        attributes: ["id", "name"],
       },
-    })
-      .then((dbReturnData) => res.json(dbReturnData))
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-  } else if (req.headers.query === "all") {
-    Return.findAll({
-    })
-      .then((dbReturnData) => res.json(dbReturnData))
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-  }
-  // else if (req.headers.query === "completed") {
-  //   Return.findAll({
-  //     where: {
-  //       condition_id: {
-  //         [Op.not]: null,
-  //       },
-  //       credit: {
-  //         [Op.not]: null,
-  //       },
-  //     },
-  //   })
-  //     .then((dbReturnData) => res.json(dbReturnData))
-  //     .catch((err) => {
-  //       console.log(err);
-  //       res.status(500).json(err);
-  //     });
-  // }
+      {
+        model: Action,
+        attributes: ["id", "name"],
+      },
+    ],
+  })
+    .then((dbReturnData) => res.json(dbReturnData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.get("/:id", (req, res) => {
@@ -71,8 +42,8 @@ router.get("/:id", (req, res) => {
         attributes: ["id", "name"],
       },
       {
-        model: Customer,
-        attributes: ["id", "name", "address", "phone", "email"],
+        model: Action,
+        attributes: ["id", "name"],
       },
     ],
   })
@@ -86,17 +57,21 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   console.log("test", req.body);
   Return.create({
-    part_number: req.body.partNumber,
+    part_number: req.body.part_number,
     quantity: req.body.quantity,
     reason_id: req.body.reason,
-    condition_id: req.body.condition,
-    customer_id: req.body.customer,
+    customer_name: req.body.customer_name,
+    customer_address: req.body.customer_address,
+    customer_phone: req.body.customer_phone,
+    customer_email: req.body.customer_email,
+    request_date: req.body.request_date,
     notes: req.body.notes,
+    status: req.body.status,
   })
     .then((dbReturnData) => {
       // req.session.save(() => {
-        // req.session.user_id = dbUserData.id;
-  // res.json(obj);
+      // req.session.user_id = dbUserData.id;
+      // res.json(obj);
       res.json(dbReturnData);
       // });
     })
@@ -107,13 +82,14 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
+  console.log("req.params.id", req.params.id);
   Return.update(req.body, {
-    individualHooks: true,
     where: {
       id: req.params.id,
     },
-    condition_id: req.body.condition,
+    condition_id: req.body.condition_id,
     notes: req.body.notes,
+    individualHooks: true,
   })
     .then((dbReturnData) => {
       if (!dbReturnData) {
