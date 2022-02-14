@@ -3,11 +3,12 @@ const $redReturnList = document.querySelector("#red-return-list");
 const $currentReturnInfo = document.querySelector("#current-return-info");
 const $actionInput = document.querySelector("#action-input");
 const $updateForm = document.querySelector("#update-form");
+const $stockInput = document.querySelector("#stock-input");
 const $tealDiv = document.querySelector("#teal-div");
 $tealDiv.style.display = "none";
 const $redDiv = document.querySelector("#red-div");
 $redDiv.style.display = "none";
-const $creditBoolean = document.getElementById("credit-input");
+const $creditBoolean = document.querySelector("#credit-input");
 const $updateButton = document.querySelector("#submitButton");
 var action_id;
 
@@ -22,20 +23,20 @@ const handleUpdateFormSubmit = (event) => {
   let notes = chosenReturn.notes.concat("\n", notesAdd);
   if ($creditBoolean.checked) {
     var credit = true;
-  } else {
-    var credit = null;
-  }
-  if (credit) {
-    var status = "blue";
+    action_id = parseInt(action_id);
+    console.log("action_id", action_id);
+    var status = "green";
     var updateObject = {
+      credit,
+      action_id,
       notes,
       status,
-    };
-  } else {
-    var status = "green";
-    action_id = parseInt(action_id);
+    }
+  } else if ($stockInput) {
+    var stock_corrected = true;
+    var status = "blue";
     var updateObject = {
-      action_id,
+      stock_corrected,
       notes,
       status,
     };
@@ -106,7 +107,7 @@ const renderChosenReturn = async (jsonReturn) => {
   $tealDiv.style.display = "none";
   $redDiv.style.display = "none";
   currentId = chosenReturn.id;
-  const returnHTML = `<p>RGA# - <span id="rga-number">${chosenReturn.id}</span></p>
+  let returnHTML = `<p>RGA# - <span id="rga-number">${chosenReturn.id}</span></p>
       <p>Quantity - <span id="quantity">${chosenReturn.quantity}</span></p>
       <p>Part# - <span id="part-number">${chosenReturn.part_number}</span></p>
       <p>Customer Name - <span id="customer-name">${chosenReturn.customer_name}</span></p>
@@ -114,13 +115,16 @@ const renderChosenReturn = async (jsonReturn) => {
       <p>Customer Phone - <span id="customer-phone">${chosenReturn.customer_phone}</span></p>
       <p>Customer Email - <span id="customer-email">${chosenReturn.customer_email}</span></p>
       <p>Date of Request - <span id="request-date">${chosenReturn.request_date}</span></p>
-      <p>Return Reason - <span id="request-date">${chosenReturn.reason.name}</span></p>
-      <p>Condition - <span id="request-date">${chosenReturn.condition.name}</span></p>
+      <p>Return Reason - <span id="request-name">${chosenReturn.reason.name}</span></p>
+      <p>Condition - <span id="condition">${chosenReturn.condition.name}</span></p>
       <p>Notes - <span id="notes">${chosenReturn.notes}</span></p>`;
   $currentReturnInfo.innerHTML = returnHTML;
   if (chosenReturn.status === "teal") {
     $tealDiv.style.display = "block";
   } else if (chosenReturn.status === "red") {
+    const stockHTML = `<p>Stock Count - <span id="current_stock">${chosenReturn.current_stock}</span></p>`;
+    const combined = returnHTML.concat("\n", stockHTML);
+    $currentReturnInfo.innerHTML = combined;
     $redDiv.style.display = "block";
   }
 };

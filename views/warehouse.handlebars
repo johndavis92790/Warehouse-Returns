@@ -1,0 +1,67 @@
+<div class="columns is-desktop">
+  <div class="select is-multiple column is-one-quarter ml-5">
+    <h3 class="is-size-4 has-text-centered">Part Numbers</h3>
+    <select
+      returns
+      id="yellow-return-list"
+      class="column is-full is-full-mobile"
+      multiple
+      size="5"
+    ></select>
+    <select
+      returns
+      id="green-return-list"
+      class="column is-full is-full-mobile"
+      multiple
+      size="5"
+    ></select>
+  </div>
+
+  <div class="column is-two-thirds has-background-lightskyblue m-3">
+    <h3 class="is-size-4 has-text-centered mb-3">Warehouse Action Items</h3>
+    <div class="box columns">
+      <section class="column is-half big-box">
+        <h3 class="is-size-5 has-text-left">Return Details:</h3>
+        <section>
+          <div id="current-return-info" class="RGA"></div>
+        </section>
+      </section>
+      <section id="update-form" class="column is-half big-box">
+        <div id="yellow-div" class="control">
+          <h2 class="is-size-5 has-text-left">Choose Condition</h2>
+          <div class="select">
+            <select
+              id="condition-input"
+              class="is-full is-full-mobile"
+            ></select>
+          </div>
+        </div>
+        <div id="green-div" class="control">
+          <div class="control  pb-3">
+            <input id="stock-quantity" name="stock-quantity" class="input" type="text" placeholder="Current Shelf Count" />
+          </div>
+          <h2 id="action-name" class="is-size-5 has-text-left"></h2>
+          <h2 class="is-size-5 has-text-left">
+            <span class="checkbox-wrapper">
+              <input id="action-input" name="action-input" type="radio" />
+            </span>
+            Action Completed
+          </h2>
+        </div>
+        <div class="spacing">
+          <h2 class="is-size-5 has-text-left">Add Notes:</h2>
+          <textarea
+            id="notes_add"
+            name="notes_add"
+            class="textarea is-success"
+            placeholder="Notes:"
+            rows="1"
+          ></textarea>
+        </div>
+        <button id="submitButton" class="sizing" type="submit">Update Part</button>
+      </section>
+    </div>
+  </div>
+</div>
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script src="./js/warehouse.js"></script>

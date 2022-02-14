@@ -39,7 +39,7 @@ Return.init(
       type: DataTypes.DATEONLY,
     },
     stock_corrected: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BOOLEAN,
     },
     reason_id: {
       type: DataTypes.INTEGER,

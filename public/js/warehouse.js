@@ -9,6 +9,7 @@ const $greenDiv = document.querySelector("#green-div");
 $greenDiv.style.display = "none";
 const $actionName = document.getElementById("action-name");
 const $actionBoolean = document.getElementById("action-input");
+
 const $updateButton = document.querySelector("#submitButton");
 var condition_id;
 
@@ -18,21 +19,20 @@ var currentId;
 
 const handleUpdateFormSubmit = (event) => {
   event.preventDefault();
+
   
   const notesAdd = $updateForm.querySelector('[name="notes_add"]').value;
   let notes = chosenReturn.notes.concat("\n", notesAdd);
   if ($actionBoolean.checked) {
-    var action = true;
-  } else {
-    var action = null;
-  }
-  if (action) {
+    const $stockQuantity = document.querySelector("#stock-quantity").value;
+    var current_stock = $stockQuantity;
     var status = "red";
     var updateObject = {
+      current_stock,
       notes,
       status,
     };
-  } else {
+  } else if ($conditionInput) {
     var status = "teal";
     condition_id = parseInt(condition_id);
     var updateObject = {
