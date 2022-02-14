@@ -2,19 +2,19 @@ const path = require("path");
 const express = require("express");
 const session = require("express-session");
 //const mysql2 = require('mysql2');
-// const exphbs = require("express-handlebars");
+
 
 const app = express();
 app.use(express.static('./test-htmls'));
 
-// const exphbs = require('express-handlebars');
-// const hbs = exphbs.create({});
+const exphbs = require('express-handlebars');
+const hbs = exphbs.create({});
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// app.engine('handlebars', hbs.engine);
-// app.set('view engine', 'handlebars');
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
 const PORT = process.env.PORT || 3001;
 
 const sequelize = require("./config/connection");
