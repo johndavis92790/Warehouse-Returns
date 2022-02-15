@@ -1,11 +1,9 @@
 const path = require("path");
 const express = require("express");
 const session = require("express-session");
-//const mysql2 = require('mysql2');
 
 
 const app = express();
-app.use(express.static('./test-htmls'));
 
 const exphbs = require('express-handlebars');
 const hbs = exphbs.create({});
@@ -33,11 +31,7 @@ const sess = {
 app.use(session(sess));
 
 // const helpers = require("./utils/helpers");
-
 // const hbs = exphbs.create({ helpers });
-
-// app.engine("handlebars", hbs.engine);
-// app.set("view engine", "handlebars");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
