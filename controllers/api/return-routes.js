@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const { Op } = require("sequelize");
 const { Return, Reason, Condition, Customer, Action } = require("../../models");
-// const withAuth = require("../../utils/auth");
 
 router.get("/", (req, res) => {
   Return.findAll({
@@ -69,11 +68,7 @@ router.post("/", (req, res) => {
     status: req.body.status,
   })
     .then((dbReturnData) => {
-      // req.session.save(() => {
-      // req.session.user_id = dbUserData.id;
-      // res.json(obj);
       res.json(dbReturnData);
-      // });
     })
     .catch((err) => {
       console.log(err);
