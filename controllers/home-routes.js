@@ -39,6 +39,10 @@ router.get('/warehouse', (req,res) => {
 //         res.sendFile(path.join(__dirname, '../public/warehouse.html'));
 // });
 
+router.get("/completed", (req, res) => {
+  res.render("completed");
+});
+
 router.get('/request', (req,res) => {
     res.sendFile(path.join(__dirname, '../public/request.html'));
 });

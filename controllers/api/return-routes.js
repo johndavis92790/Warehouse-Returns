@@ -87,8 +87,6 @@ router.put("/:id", (req, res) => {
     where: {
       id: req.params.id,
     },
-    condition_id: req.body.condition_id,
-    notes: req.body.notes,
     individualHooks: true,
   })
     .then((dbReturnData) => {

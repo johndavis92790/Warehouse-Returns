@@ -9,9 +9,10 @@ const $greenDiv = document.querySelector("#green-div");
 $greenDiv.style.display = "none";
 const $actionName = document.getElementById("action-name");
 const $actionBoolean = document.getElementById("action-input");
+const $stockQuantity = document.querySelector("#stock-quantity");
 
 const $updateButton = document.querySelector("#submitButton");
-var condition_id;
+var condition_id = 1;
 
 var jsonReturns = {};
 var chosenReturn;
@@ -20,12 +21,14 @@ var currentId;
 const handleUpdateFormSubmit = (event) => {
   event.preventDefault();
 
-  
   const notesAdd = $updateForm.querySelector('[name="notes_add"]').value;
-  let notes = chosenReturn.notes.concat("\n", notesAdd);
+  if (notesAdd) {
+    var notes = chosenReturn.notes.concat(" | Warehouse Notes - ", notesAdd);
+  } else {
+    var notes = chosenReturn.notes;
+  }
   if ($actionBoolean.checked) {
-    const $stockQuantity = document.querySelector("#stock-quantity").value;
-    var current_stock = $stockQuantity;
+    var current_stock = $stockQuantity.value;
     var status = "red";
     var updateObject = {
       current_stock,
@@ -60,6 +63,10 @@ const handleUpdateFormSubmit = (event) => {
       alert("Thank you for submitting an update!");
       $currentReturnInfo.innerHTML = '';
       document.getElementById("notes_add").value = "";
+      $yellowDiv.style.display = "none";
+      $greenDiv.style.display = "none";
+      $actionBoolean.checked = false;
+      $stockQuantity.value = '';
       getAndRenderReturns();
     });
 };

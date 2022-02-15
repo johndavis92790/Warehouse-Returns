@@ -10,7 +10,7 @@ const $redDiv = document.querySelector("#red-div");
 $redDiv.style.display = "none";
 const $creditBoolean = document.querySelector("#credit-input");
 const $updateButton = document.querySelector("#submitButton");
-var action_id;
+var action_id = 1;
 
 var jsonReturns = {};
 var chosenReturn;
@@ -20,7 +20,11 @@ const handleUpdateFormSubmit = (event) => {
   event.preventDefault();
 
   const notesAdd = $updateForm.querySelector('[name="notes_add"]').value;
-  let notes = chosenReturn.notes.concat("\n", notesAdd);
+  if (notesAdd) {
+    var notes = chosenReturn.notes.concat(" | Office Notes - ", notesAdd);
+  } else {
+    var notes = chosenReturn.notes;
+  }
   if ($creditBoolean.checked) {
     var credit = true;
     action_id = parseInt(action_id);
@@ -60,6 +64,9 @@ const handleUpdateFormSubmit = (event) => {
       alert("Thank you for submitting an update!");
       $currentReturnInfo.innerHTML = "";
       document.getElementById("notes_add").value = "";
+      $creditBoolean.checked = false;
+      $redDiv.style.display = "none";
+      $tealDiv.style.display = "none";
       getAndRenderReturns();
     });
 };
