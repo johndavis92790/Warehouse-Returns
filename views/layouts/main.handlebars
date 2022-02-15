@@ -10,6 +10,51 @@
 
      <header class="main-title">
       <h1 >Warehouse Returns</h1>
+      <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+            <img src="/img/salty-brook.png" height="70">
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+      {{#if loggedIn}}
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a href="/" class="navbar-item">
+                    Home
+                </a>
+
+                <a href="/warehouse" class="navbar-item">
+                    Warehouse Items
+                </a>
+
+                <a href="/office" class="navbar-item">
+                    Office Items
+                </a>
+
+                <a href="/completed" class="navbar-item">
+                    Completed Returns
+                </a>
+            </div>
+
+            <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a href="/login" class="button is-light">
+                        Log out
+                    </a>
+                </div>
+            </div>
+            </div>
+      {{/if}}
+        </div>
+    </nav>
     </header>
 
     <body>
