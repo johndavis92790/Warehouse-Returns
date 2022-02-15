@@ -15,11 +15,7 @@ async function loginFormHandler(event) {
     });
 
     if (response.ok) {
-
-      // this is where we need to tell handlebars which html to display after login!!!!!!!!!!!!!!!!!!!!
-      document.location.replace("/dashboard/");
-
-
+      document.location.replace("/");
     } else {
       alert(response.statusText);
     }
@@ -45,11 +41,7 @@ async function signupFormHandler(event) {
     });
 
     if (response.ok) {
-
-      // this is where we need to tell handlebars which html to display after signup!!!!!!!!!!!!!!!!!!!!!
-      document.location.replace("/dashboard/");
-
-
+      document.location.replace("/");
     } else {
       alert(response.statusText);
     }
@@ -57,9 +49,9 @@ async function signupFormHandler(event) {
 }
 
 document
-  .querySelector(".login-form")
+  .querySelector("#login-form")
   .addEventListener("submit", loginFormHandler);
 
 document
-  .querySelector(".signup-form")
+  .querySelector("#signup-form")
   .addEventListener("submit", signupFormHandler);

@@ -7,7 +7,7 @@ async function logout() {
   if (response.ok) {
 
     // this is where we need to tell handlebars which html to display after logout!!!!!!!!!!!!!!!!!!!!!!!!
-    document.location.replace("/");
+    document.location.replace("/login");
 
   } else {
     alert(response.statusText);
