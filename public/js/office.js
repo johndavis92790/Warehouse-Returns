@@ -1,3 +1,6 @@
+// logic for office page
+
+// global variables
 const $tealReturnList = document.querySelector("#teal-return-list");
 const $redReturnList = document.querySelector("#red-return-list");
 const $currentReturnInfo = document.querySelector("#current-return-info");
@@ -11,40 +14,45 @@ $redDiv.style.display = "none";
 const $creditBoolean = document.querySelector("#credit-input");
 const $updateButton = document.querySelector("#submitButton");
 var action_id = 1;
-
 var jsonReturns = {};
 var chosenReturn;
 var currentId;
 
+// handle submit button
 const handleUpdateFormSubmit = (event) => {
   event.preventDefault();
 
+  // pulls data from input on page, adds notes to existing notes text
   const notesAdd = $updateForm.querySelector('[name="notes_add"]').value;
   if (notesAdd) {
     var notes = chosenReturn.notes.concat(" | Office Notes - ", notesAdd);
   } else {
     var notes = chosenReturn.notes;
   }
+  // if teal part is being updated
   if ($creditBoolean.checked) {
     var credit = true;
     action_id = parseInt(action_id);
-    console.log("action_id", action_id);
     var status = "green";
+    // packages data into object for POST request
     var updateObject = {
       credit,
       action_id,
       notes,
       status,
-    }
+    };
+    // if red part is being updated
   } else if ($stockInput) {
     var stock_corrected = true;
     var status = "blue";
+    // packages data into object for POST request
     var updateObject = {
       stock_corrected,
       notes,
       status,
     };
   }
+  // PUT request by ID#
   fetch("/api/return/" + currentId, {
     method: "PUT",
     headers: {
@@ -62,6 +70,7 @@ const handleUpdateFormSubmit = (event) => {
     })
     .then(() => {
       alert("Thank you for submitting an update!");
+      // empties input fields on page
       $currentReturnInfo.innerHTML = "";
       document.getElementById("notes_add").value = "";
       $creditBoolean.checked = false;
@@ -71,6 +80,7 @@ const handleUpdateFormSubmit = (event) => {
     });
 };
 
+// GET request for returns
 const getReturns = () =>
   fetch("/api/return", {
     method: "GET",
@@ -80,6 +90,7 @@ const getReturns = () =>
     },
   });
 
+// renders list of returns for both teal and red parts
 const renderReturnList = async (returns) => {
   jsonReturns = await returns.json();
   const tealReturns = jsonReturns.filter((jsonReturns) => {
@@ -101,6 +112,7 @@ const renderReturnList = async (returns) => {
   $redReturnList.addEventListener("click", getAndRenderChosenReturn);
 };
 
+// GET request for chosen return to display more information on that specific return
 const getChosenReturn = (id) =>
   fetch("/api/return/" + id, {
     method: "GET",
@@ -109,6 +121,7 @@ const getChosenReturn = (id) =>
     },
   });
 
+// render chosen return to display all needed information
 const renderChosenReturn = async (jsonReturn) => {
   chosenReturn = await jsonReturn.json();
   $tealDiv.style.display = "none";
@@ -136,6 +149,7 @@ const renderChosenReturn = async (jsonReturn) => {
   }
 };
 
+// GET request for actions
 const getActions = () =>
   fetch("/api/action", {
     method: "GET",
@@ -144,6 +158,7 @@ const getActions = () =>
     },
   });
 
+// render dropdown list of actions
 const renderActionList = async (actions) => {
   let jsonActions = await actions.json();
   const actionHTML = jsonActions.map((jsonActions) => {
@@ -167,6 +182,7 @@ $actionInput.onchange = function () {
 
 const init = () => getAndRenderReturns().then(getAndRenderActions);
 
+// init
 init();
 
 $updateButton.addEventListener("click", handleUpdateFormSubmit);

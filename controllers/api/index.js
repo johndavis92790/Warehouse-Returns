@@ -1,6 +1,5 @@
 const router = require('express').Router();
 
-
 const returnRoutes = require('./return-routes.js');
 const customerRoutes = require('./customer-routes.js');
 const reasonRoutes = require('./reason-routes.js');
@@ -14,6 +13,5 @@ router.use('/reason', reasonRoutes);
 router.use('/condition', conditionRoutes);
 router.use("/users", userRoutes);
 router.use("/action", actionRoutes );
-
 
 module.exports = router;

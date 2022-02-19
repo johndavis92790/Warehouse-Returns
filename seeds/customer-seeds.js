@@ -1,5 +1,6 @@
 const { Customer } = require("../models");
 
+// these seeds not currently used, maybe will be integrated in the future
 const customerData = [
   {
     name: "Test Company",

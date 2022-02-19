@@ -1,3 +1,6 @@
+// logic for wartehouse page
+
+// global variables
 const $yellowReturnList = document.querySelector("#yellow-return-list");
 const $greenReturnList = document.querySelector("#green-return-list");
 const $currentReturnInfo = document.querySelector("#current-return-info");
@@ -10,40 +13,45 @@ $greenDiv.style.display = "none";
 const $actionName = document.getElementById("action-name");
 const $actionBoolean = document.getElementById("action-input");
 const $stockQuantity = document.querySelector("#stock-quantity");
-
 const $updateButton = document.querySelector("#submitButton");
 var condition_id = 1;
-
 var jsonReturns = {};
 var chosenReturn;
 var currentId;
 
+// handle submit button
 const handleUpdateFormSubmit = (event) => {
   event.preventDefault();
 
+  // pulls data from input on page, adds notes to existing notes text
   const notesAdd = $updateForm.querySelector('[name="notes_add"]').value;
   if (notesAdd) {
     var notes = chosenReturn.notes.concat(" | Warehouse Notes - ", notesAdd);
   } else {
     var notes = chosenReturn.notes;
   }
+  // if green part is being updated
   if ($actionBoolean.checked) {
     var current_stock = $stockQuantity.value;
     var status = "red";
+    // packages data into object for POST request
     var updateObject = {
       current_stock,
       notes,
       status,
     };
+    // if yellow part is being updated
   } else if ($conditionInput) {
     var status = "teal";
     condition_id = parseInt(condition_id);
+    // packages data into object for POST request
     var updateObject = {
       condition_id,
       notes,
       status,
     };
   }
+  // PUT request by ID#
   fetch("/api/return/" + currentId, {
     method: "PUT",
     headers: {
@@ -61,29 +69,32 @@ const handleUpdateFormSubmit = (event) => {
     })
     .then(() => {
       alert("Thank you for submitting an update!");
-      $currentReturnInfo.innerHTML = '';
+      // empties input fields on page
+      $currentReturnInfo.innerHTML = "";
       document.getElementById("notes_add").value = "";
       $yellowDiv.style.display = "none";
       $greenDiv.style.display = "none";
       $actionBoolean.checked = false;
-      $stockQuantity.value = '';
+      $stockQuantity.value = "";
       getAndRenderReturns();
     });
 };
 
+// GET request for returns
 const getReturns = () =>
   fetch("/api/return", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "query": "all",
+      query: "all",
     },
   });
 
+// renders list of returns for both yellow and green parts
 const renderReturnList = async (returns) => {
   jsonReturns = await returns.json();
   const yellowReturns = jsonReturns.filter((jsonReturns) => {
-    return jsonReturns.status === 'yellow';
+    return jsonReturns.status === "yellow";
   });
   yellowHTML = yellowReturns.map((yellowReturns) => {
     return `<option class="has-background-warning" id="${yellowReturns.id}">${yellowReturns.part_number}</option>`;
@@ -101,7 +112,8 @@ const renderReturnList = async (returns) => {
   $greenReturnList.addEventListener("click", getAndRenderChosenReturn);
 };
 
-const getChosenReturn = (id) => 
+// GET request for chosen return to display more information on that specific return
+const getChosenReturn = (id) =>
   fetch("/api/return/" + id, {
     method: "GET",
     headers: {
@@ -109,6 +121,7 @@ const getChosenReturn = (id) =>
     },
   });
 
+// render chosen return to display all needed information
 const renderChosenReturn = async (jsonReturn) => {
   chosenReturn = await jsonReturn.json();
   $yellowDiv.style.display = "none";
@@ -131,9 +144,9 @@ const renderChosenReturn = async (jsonReturn) => {
     $actionName.innerHTML = chosenReturn.action.name;
     $greenDiv.style.display = "block";
   }
-  
-}; 
+};
 
+// GET request for conditions
 const getConditions = () =>
   fetch("/api/condition", {
     method: "GET",
@@ -142,6 +155,7 @@ const getConditions = () =>
     },
   });
 
+// render dropdown list of conditions
 const renderConditionList = async (conditions) => {
   let jsonConditions = await conditions.json();
   const conditionHTML = jsonConditions.map((jsonConditions) => {
@@ -156,9 +170,8 @@ const getAndRenderConditions = () => getConditions().then(renderConditionList);
 const getAndRenderReturns = () => getReturns().then(renderReturnList);
 
 const getAndRenderChosenReturn = (event) => {
-  getChosenReturn(event.path[0].id)
-    .then(renderChosenReturn);
-}
+  getChosenReturn(event.path[0].id).then(renderChosenReturn);
+};
 
 $conditionInput.onchange = function () {
   condition_id = document.getElementById("condition-input").value;
@@ -166,6 +179,7 @@ $conditionInput.onchange = function () {
 
 const init = () => getAndRenderReturns().then(getAndRenderConditions);
 
+// init
 init();
 
 $updateButton.addEventListener("click", handleUpdateFormSubmit);

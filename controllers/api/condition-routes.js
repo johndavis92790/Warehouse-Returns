@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { Condition } = require("../../models");
-// const withAuth = require("../../utils/auth");
 
+// get all conditions
 router.get("/", (req, res) => {
   Condition.findAll()
     .then((dbConditionData) => res.json(dbConditionData))

@@ -13,6 +13,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// get a specific user
 router.get("/:id", (req, res) => {
   User.findOne({
     attributes: { exclude: ["password"] },
@@ -33,6 +34,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// create a new user login
 router.post("/", (req, res) => {
   User.create({
     username: req.body.username,
@@ -53,8 +55,8 @@ router.post("/", (req, res) => {
     });
 });
 
+// post route to check login username and password
 router.post("/login", (req, res) => {
-  // expects {email: 'lernantino@gmail.com', password: 'password1234'}
   User.findOne({
     where: {
       username: req.body.username,
@@ -64,23 +66,20 @@ router.post("/login", (req, res) => {
       res.status(400).json({ message: "No user with that email address!" });
       return;
     }
-
     const validPassword = dbUserData.checkPassword(req.body.password);
-
     if (!validPassword) {
       res.status(400).json({ message: "Incorrect password!" });
       return;
     }
-
     req.session.save(() => {
       req.session.username = dbUserData.id;
       req.session.loggedIn = true;
-
       res.json({ user: dbUserData, message: "You are now logged in!" });
     });
   });
 });
 
+// post route to delete session of when someone logs out
 router.post("/logout", (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
@@ -91,6 +90,7 @@ router.post("/logout", (req, res) => {
   }
 });
 
+// change a user login
 router.put("/:id", (req, res) => {
   User.update(req.body, {
     individualHooks: true,
@@ -111,6 +111,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
+// delete a user login
 router.delete("/:id", (req, res) => {
   User.destroy({
     where: {

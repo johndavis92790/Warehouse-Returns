@@ -1,22 +1,38 @@
+// logic for request page
+
+// global variables
 const $requestForm = document.querySelector("#requestForm");
 const $submitButton = document.querySelector("#submit");
 const $reasonInput = document.getElementById("reason-input");
 var reason;
 
+// handle submit button
 const handleRequestFormSubmit = (event) => {
   event.preventDefault();
 
-  const customer_name = $requestForm.querySelector('[name="customer_name"]').value;
-  const customer_address = $requestForm.querySelector('[name="customer_address"]').value;
-  const customer_phone = $requestForm.querySelector('[name="customer_phone"]').value;
-  const customer_email = $requestForm.querySelector('[name="customer_email"]').value;
+  // pulls data from input on page
+  const customer_name = $requestForm.querySelector(
+    '[name="customer_name"]'
+  ).value;
+  const customer_address = $requestForm.querySelector(
+    '[name="customer_address"]'
+  ).value;
+  const customer_phone = $requestForm.querySelector(
+    '[name="customer_phone"]'
+  ).value;
+  const customer_email = $requestForm.querySelector(
+    '[name="customer_email"]'
+  ).value;
   const part_number = $requestForm.querySelector('[name="part_number"]').value;
-  const quantity = parseInt($requestForm.querySelector('[name="quantity"]').value);
+  const quantity = parseInt(
+    $requestForm.querySelector('[name="quantity"]').value
+  );
   const customerNotes = $requestForm.querySelector('[name="notes"]').value;
   const string = "Customer Notes - ";
   let notes = string.concat(customerNotes);
   var request_date = dayjs().format("YYYY-MM-DD");
-  const status = "yellow"
+  const status = "yellow";
+  // packages data into object for POST request
   const requestObject = {
     customer_name,
     customer_address,
@@ -29,6 +45,7 @@ const handleRequestFormSubmit = (event) => {
     request_date,
     status,
   };
+  // POST request, new return created
   fetch("/api/return", {
     method: "POST",
     headers: {
@@ -46,6 +63,7 @@ const handleRequestFormSubmit = (event) => {
     .then((postResponse) => {
       console.log(postResponse);
       alert("Thank you for submitting a request!");
+      // empties input fields on page
       document.getElementById("customerName").value = "";
       document.getElementById("customerAddress").value = "";
       document.getElementById("customerPhone").value = "";
@@ -57,6 +75,7 @@ const handleRequestFormSubmit = (event) => {
     });
 };
 
+// GET request for reasons
 const getReasons = () =>
   fetch("/api/reason", {
     method: "GET",
@@ -65,6 +84,7 @@ const getReasons = () =>
     },
   });
 
+// render dropdown list of reasons
 const renderReasonList = async (reasons) => {
   let jsonReasons = await reasons.json();
   let reasonListItems = [];
@@ -82,7 +102,9 @@ const renderReasonList = async (reasons) => {
 
 const getAndRenderReasons = () => getReasons().then(renderReasonList);
 
+// init
 getAndRenderReasons();
+
 
 $reasonInput.onchange = function () {
   reason = document.getElementById("reason-input").value;

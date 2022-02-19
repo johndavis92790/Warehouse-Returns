@@ -7,10 +7,6 @@ const User = require("./User");
 const Action = require("./Action");
 
 // create associations
-// Return.belongsTo(Customer, {
-//   foreignKey: "customer_id",
-// });
-
 Return.belongsTo(Reason, {
   foreignKey: "reason_id",
 });

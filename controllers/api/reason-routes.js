@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Reason } = require('../../models');
-// const withAuth = require("../../utils/auth");
 
+// get all return reasons
 router.get('/', (req,res) => {
   Reason.findAll()
     .then((dbReasonData) => res.json(dbReasonData))

@@ -1,3 +1,4 @@
+// logic for navbar and the changes it takes when on a mobile view
 document.addEventListener("DOMContentLoaded", () => {
   // Get all "navbar-burger" elements
   const $navbarBurgers = Array.prototype.slice.call(

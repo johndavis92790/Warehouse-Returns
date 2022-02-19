@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { Action } = require("../../models");
-// const withAuth = require("../../utils/auth");
 
+// get all actions
 router.get("/", (req, res) => {
   Action.findAll()
     .then((dbActionData) => res.json(dbActionData))

@@ -1,75 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Warehouse Returns</title>
-        <link rel="stylesheet" href="/stylesheets/style.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    </head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Returns</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  </head>
 
-<header>
+  <header>
     <nav class="navbar is-info" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="/">
-            <img src="/img/salty-brook.png" height="70">
-            </a>
-
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            </a>
-        </div>
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+        <img src="/img/salty-brook.png" height="70">
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        </a>
+      </div>
 
       {{#if loggedIn}}
-        <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start">
-                <a href="/" class="navbar-item">
-                    Home
-                </a>
-
-                <a href="/warehouse" class="navbar-item">
-                    Warehouse Items
-                </a>
-
-                <a href="/office" class="navbar-item">
-                    Office Items
-                </a>
-
-                <a href="/completed" class="navbar-item">
-                    Completed Returns
-                </a>
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a href="/" class="navbar-item">
+            Home
+          </a>
+          <a href="/warehouse" class="navbar-item">
+            Warehouse Items
+          </a>
+          <a href="/office" class="navbar-item">
+            Office Items
+          </a>
+          <a href="/completed" class="navbar-item">
+            Completed Returns
+          </a>
+        </div>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a id="logout" href="/login" class="button is-light">
+                Log out
+              </a>
             </div>
-
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a id="logout" href="/login" class="button is-light">
-                            Log out
-                        </a>
-                    </div>
-                </div>
-            </div>
+          </div>
+        </div>
       {{/if}}
-        </div>
+      </div>
     </nav>
-
-    </header>
-
-    <body>
-        <div class="wrapper">
-            <main>
-                {{{ body }}}
-            </main>
-            <footer class="footer">
-                <div class="content has-text-centered">
-                    <p>
-                    <strong>Salty Brook</strong> by <a href="https://github.com/HottieHotton/Warehouse-Returns.git">John Davis, Braxton Hotton, Daniel Jardine</a>. The source code is licensed
-                    <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
-                </div>
-            </footer>
+  </header>
+  <body>
+    <div class="wrapper">
+      <main>
+        {{{ body }}}
+      </main>
+      <footer class="footer">
+        <div class="content has-text-centered">
+          <p>
+          <strong>Salty Brook</strong> by 
+          <a href="https://github.com/HottieHotton/Warehouse-Returns.git">John Davis, Braxton Hotton, Daniel Jardine.</a> 
+            The source code is licensed
+          <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
         </div>
-        <script src="./js/navbar.js"></script>
-    </body>
+      </footer>
+    </div>
+    <script src="./js/navbar.js"></script>
+  </body>
 </html>

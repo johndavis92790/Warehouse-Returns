@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { Customer } = require('../../models');
-// const withAuth = require("../../utils/auth");
 
+// these routes not currently used, maybe will be integrated in the future
+// get all customers
 router.get('/', (req, res) => {
   Customer.findAll()
     .then((dbCustomerData) => res.json(dbCustomerData))

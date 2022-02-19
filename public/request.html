@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
+  <!-- This page is the only public html file since any customer without a login need to be able 
+  to request a login in a ver simple manner that requires very little work on their end. This is 
+  only going to be accessed through a direct link to /request.html. There is no need for a 
+  hyperlink anywhere else in the application since anyone using this page is only going to be 
+  making a PUT request and nothing else. -->
+
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,11 +17,11 @@
   <body>
     <header>
       <nav class="navbar is-info" role="navigation" aria-label="main navigation">
-          <div class="navbar-brand">
-              <a class="navbar-item" href="/">
-              <img src="/img/salty-brook.png" height="70">
-              </a>
-          </div>
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+          <img src="/img/salty-brook.png" height="70">
+          </a>
+        </div>
       </nav>
     </header>
     <div class="columns">

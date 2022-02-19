@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "server.js",
     "test": "jest",
     "seeds": "node seeds/index.js"
   },

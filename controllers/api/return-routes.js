@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { Op } = require("sequelize");
 const { Return, Reason, Condition, Customer, Action } = require("../../models");
 
+// get all returns
 router.get("/", (req, res) => {
   Return.findAll({
     include: [
@@ -26,6 +27,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// get a specific return
 router.get("/:id", (req, res) => {
   Return.findOne({
     where: {
@@ -53,6 +55,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// create a new return process  
 router.post("/", (req, res) => {
   console.log("test", req.body);
   Return.create({
@@ -76,6 +79,7 @@ router.post("/", (req, res) => {
     });
 });
 
+// update any return for any reason
 router.put("/:id", (req, res) => {
   console.log("req.params.id", req.params.id);
   Return.update(req.body, {
@@ -97,6 +101,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
+// delete any return
 router.delete("/:id", (req, res) => {
   Return.destroy({
     where: {

@@ -1,10 +1,13 @@
+// logic for completed page
+
+// global variables
 const $blueReturnList = document.querySelector("#blue-return-list");
 const $currentReturnInfo = document.querySelector("#current-return-info");
-
 var jsonReturns = {};
 var chosenReturn;
 var currentId;
 
+// GET request for returns
 const getReturns = () =>
   fetch("/api/return", {
     method: "GET",
@@ -14,6 +17,7 @@ const getReturns = () =>
     },
   });
 
+// renders list of returns for blue parts
 const renderReturnList = async (returns) => {
   jsonReturns = await returns.json();
   const blueReturns = jsonReturns.filter((jsonReturns) => {
@@ -26,6 +30,7 @@ const renderReturnList = async (returns) => {
   $blueReturnList.addEventListener("click", getAndRenderChosenReturn);
 };
 
+// GET request for chosen return to display more information on that specific return
 const getChosenReturn = (id) =>
   fetch("/api/return/" + id, {
     method: "GET",
@@ -34,6 +39,7 @@ const getChosenReturn = (id) =>
     },
   });
 
+// render chosen return to display all needed information
 const renderChosenReturn = async (jsonReturn) => {
   chosenReturn = await jsonReturn.json();
   currentId = chosenReturn.id;
@@ -58,4 +64,5 @@ const getAndRenderChosenReturn = (event) => {
   getChosenReturn(event.path[0].id).then(renderChosenReturn);
 };
 
+// init
 getAndRenderReturns();

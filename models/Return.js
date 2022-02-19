@@ -41,6 +41,7 @@ Return.init(
     stock_corrected: {
       type: DataTypes.BOOLEAN,
     },
+    // foreign key for chosen reason
     reason_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -48,6 +49,7 @@ Return.init(
         key: "id",
       },
     },
+    // foreign key for chosen condition
     condition_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -73,6 +75,7 @@ Return.init(
     credit: {
       type: DataTypes.BOOLEAN,
     },
+    // foreign key for chosen action
     action_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -80,13 +83,13 @@ Return.init(
         key: "id",
       },
     },
+    // live status of which step this return is currently in
     status: {
       type: DataTypes.STRING,
     },
   },
   {
     sequelize,
-    // timestamps: true,
     freezeTableName: true,
     underscored: true,
     modelName: "return",

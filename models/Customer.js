@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
+// this model is not currently used, maybe will be integrated in the future
 class Customer extends Model {}
 
 Customer.init(

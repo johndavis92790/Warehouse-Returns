@@ -1,3 +1,4 @@
+// logic for the login page
 async function loginFormHandler(event) {
   event.preventDefault();
 
