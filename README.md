@@ -56,8 +56,8 @@
 
   [John Davis's Github](https://github.com/johndavis92790/)
 
-  [Joh's Email](mailto:johndavis92790@gmail.com)
+  [John's Email](mailto:johndavis92790@gmail.com)
 
   [Daniel Jardine's Github](https://github.com/danieljardine04)
 
-  [Daniel 's Email](mailto:danogaryjardine@gmail.com)
+  [Daniel's Email](mailto:danogaryjardine@gmail.com)
