@@ -1,3 +1,5 @@
+//All needed variables to make the server running correctly
+
 const path = require("path");
 const express = require("express");
 const session = require("express-session");

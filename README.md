@@ -28,6 +28,8 @@
 
   This was built for Davis Distributing Co as a custome application, but the backbones are built to use this code for another linear step by step process for many types of tasks and other companies.
 
+  ![Home Page](public\img\HomePage.png)
+
   ### Credits
   
   Module 14 coursework and help from our awesome TA's!
@@ -48,9 +50,14 @@
 
   ### Questions?
 
-  [Braxton Hotton GitHub Account](https://github.com/HottieHotton)
-  [Braxton Hotton Email](mailto:bhotton25@gmail.com)
-  [John Davis GitHub Account](https://github.com/johndavis92790/)
-  [John Davis Email](mailto:johndavis92790@gmail.com)
-  [Daniel Jardine GitHub Account](https://github.com/danieljardine04)
-  [Daniel Jardine Email](mailto:danogaryjardine@gmail.com)
+  [Braxton Hotton's Github](https://github.com/HottieHotton)
+
+  [Braxton's Email](mailto:bhotton25@gmail.com)
+
+  [John Davis's Github](https://github.com/johndavis92790/)
+
+  [Joh's Email](mailto:johndavis92790@gmail.com)
+
+  [Daniel Jardine's Github](https://github.com/danieljardine04)
+
+  [Daniel 's Email](mailto:danogaryjardine@gmail.com)

@@ -2,7 +2,7 @@ const router = require('express').Router();
 const withAuth = require('../utils/auth');
 const path = require('path');
 
-
+//All Necessary pages with authorization as needed
 
 router.get("/", withAuth, (req, res) => {
   res.render("homepage", {

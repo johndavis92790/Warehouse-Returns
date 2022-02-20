@@ -1,3 +1,5 @@
+//Authourization Check for page access
+
 const withAuth = (req, res, next) => {
   if (!req.session.username) {
     res.redirect('/login');
