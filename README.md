@@ -28,7 +28,11 @@
 
   This was built for Davis Distributing Co as a custome application, but the backbones are built to use this code for another linear step by step process for many types of tasks and other companies.
 
+  See the following images for a preview!
   ![Home Page](public/img/HomePage.png)
+  ![Warehouse Page](public/img/WarehousePage.png)
+  ![Office Page](public/img/OfficePage.png)
+  ![Completed](public/img/Completed.png)
 
   ### Credits
   
