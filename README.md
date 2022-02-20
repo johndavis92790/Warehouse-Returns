@@ -28,7 +28,7 @@
 
   This was built for Davis Distributing Co as a custome application, but the backbones are built to use this code for another linear step by step process for many types of tasks and other companies.
 
-  ![Home Page](public\img\HomePage.png)
+  ![Home Page](public/img/HomePage.png)
 
   ### Credits
   
